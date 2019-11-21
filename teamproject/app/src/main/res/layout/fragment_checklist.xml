@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tt_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="오늘"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/today_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+
+
+    <TextView
+        android:id="@+id/ttt_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내일"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/tomorrow_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+
+
+    <TextView
+        android:id="@+id/tt_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이번 주"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/week_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+</LinearLayout>
