@@ -6,13 +6,13 @@ android:layout_width="match_parent"
 android:layout_height="match_parent">
 
 
-            <TextView
-                android:id="@+id/checklist_text_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/bottom_bar"
-                android:text="@string/checklist_text_previous"
-                android:textSize="30sp" />
+    <TextView
+        android:id="@+id/checklist_text_previous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/divider_horizontal_textfield"
+        android:text="@string/checklist_text_previous"
+        android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/checklist_recycler_previous"
@@ -20,13 +20,13 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 />
 
-            <TextView
-                android:id="@+id/checklist_text_today"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/bottom_bar"
-                android:text="@string/checklist_text_today"
-                android:textSize="30sp" />
+    <TextView
+        android:id="@+id/checklist_text_today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/divider_horizontal_textfield"
+        android:text="@string/checklist_text_today"
+        android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/checklist_recycler_today"
@@ -34,13 +34,13 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 />
 
-            <TextView
-                android:id="@+id/checklist_text_tomorrow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/bottom_bar"
-                android:text="@string/checklist_text_tomorrow"
-                android:textSize="30sp" />
+    <TextView
+        android:id="@+id/checklist_text_tomorrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/divider_horizontal_textfield"
+        android:text="@string/checklist_text_tomorrow"
+        android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/checklist_recycler_tomorrow"
@@ -48,13 +48,13 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 />
 
-            <TextView
-                android:id="@+id/checklist_text_week"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/bottom_bar"
-                android:text="@string/checklist_text_week"
-                android:textSize="30sp" />
+    <TextView
+        android:id="@+id/checklist_text_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/divider_horizontal_textfield"
+        android:text="@string/checklist_text_week"
+        android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/checklist_recycler_week"

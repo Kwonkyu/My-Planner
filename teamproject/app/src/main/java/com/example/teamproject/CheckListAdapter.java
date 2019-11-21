@@ -15,10 +15,10 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
     private ArrayList<String> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView listitem;
+        TextView listItem;
         public MyViewHolder(View v){
             super(v);
-            listitem = (TextView)v.findViewById(R.id.checklist_item);
+            listItem = v.findViewById(R.id.checklist_item);
         }
     }
 
@@ -28,7 +28,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
 
     @Override @NonNull
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.checklistitem, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.checklist_item, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -36,9 +36,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.listitem.setText(dataSet.get(position));
+        holder.listItem.setText(dataSet.get(position));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
