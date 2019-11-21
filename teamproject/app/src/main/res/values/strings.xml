@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">teamproject</string>
+    <string name="checklist_text_previous">이전</string>
+    <string name="checklist_text_today">오늘</string>
+    <string name="checklist_text_tomorrow">내일</string>
+    <string name="checklist_text_week">이번 주</string>
 </resources>
