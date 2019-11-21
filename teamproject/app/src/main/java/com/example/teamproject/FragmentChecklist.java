@@ -42,6 +42,8 @@ public class FragmentChecklist extends Fragment {
         list.add("B");
         list.add("C");
         list.add("D");
+        list.add("E");
+        list.add("F");
 
 
         return view;
