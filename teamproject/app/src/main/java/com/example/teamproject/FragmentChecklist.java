@@ -24,6 +24,7 @@ public class FragmentChecklist extends Fragment {
     private RecyclerView.LayoutManager previous_manager, today_manager, tomorrow_manager, week_manager;
     private ArrayList<String> previous, today, tomorrow, week;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class FragmentChecklist extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.checklist_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
+       super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -43,7 +44,6 @@ public class FragmentChecklist extends Fragment {
                 Intent intent = new Intent(getActivity(), CheckListItemAdd.class);
                 startActivityForResult(intent, CHECKLIST_ADD_ITEM_REQUEST);
                 break;
-
             default:
                 break;
         }
@@ -61,41 +61,26 @@ public class FragmentChecklist extends Fragment {
         previous.add("Do 2");
         previous.add("Do 3");
         previous.add("Do 4");
-        previous.add("Do 6");
-        previous.add("Do 7");
-        previous.add("Do 8");
-        previous.add("Do 9");
+
 
         today.add("Go 1");
         today.add("Go 2");
         today.add("Go 3");
         today.add("Go 4");
-        today.add("Go 5");
-        today.add("Go 6");
-        today.add("Go 7");
-        today.add("Go 8");
-        today.add("Go 9");
+
 
         tomorrow.add("Buy 1");
         tomorrow.add("Buy 2");
         tomorrow.add("Buy 3");
         tomorrow.add("Buy 4");
-        tomorrow.add("Buy 5");
-        tomorrow.add("Buy 6");
-        tomorrow.add("Buy 7");
-        tomorrow.add("Buy 8");
-        tomorrow.add("Buy 9");
+
 
 
         week.add("Interview 1");
         week.add("Interview 2");
         week.add("Interview 3");
         week.add("Interview 4");
-        week.add("Interview 5");
-        week.add("Interview 6");
-        week.add("Interview 7");
-        week.add("Interview 8");
-        week.add("Interview 9");
+
 
 
 //        -------------------------
