@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/checklist_text_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="30dp"
+        android:text="@string/checklist_text_item_add"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/checklist_edit_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="@string/checklist_text_item_default"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage|textMultiLine|textPersonName" />
+
+</LinearLayout>

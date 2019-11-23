@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTimetable fragmentTimetable = new FragmentTimetable();
-    private FragmentCalendar fragmentCalendar = new FragmentCalendar();
+    private com.example.termprojectt.FragmentCalendar fragmentCalendar = new com.example.termprojectt.FragmentCalendar();
     private FragmentChecklist fragmentChecklist = new FragmentChecklist();
     private BottomNavigationView bottomNavigationItemView;
 

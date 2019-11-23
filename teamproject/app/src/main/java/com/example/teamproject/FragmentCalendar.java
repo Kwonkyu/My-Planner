@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.teamproject.R;
+
 import org.w3c.dom.Text;
 
 public class FragmentCalendar extends Fragment {
