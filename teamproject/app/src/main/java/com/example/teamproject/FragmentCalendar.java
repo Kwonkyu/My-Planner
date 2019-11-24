@@ -88,7 +88,8 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
                 } catch (IOException e) {       //파일 관련 작업 시의 예외처리
                     e.printStackTrace();
                 }
-
+                read_file(FILENAME);
+                break;
             default:
                 break;
         }
@@ -148,6 +149,8 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
                 date_TextView.setText(date);
                 FILENAME = year + "_" + (month + 1) + "_" + dayOfMonth + ".txt";
                 calendarlist.clear();
+                read_file(FILENAME);
+                /*
                 try {
                     calendarlist.clear();
                     FileInputStream fis = getActivity().openFileInput(FILENAME);
@@ -172,20 +175,11 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
                     calendarlist.clear();
                     calendarlist_adapter.notifyDataSetChanged();
                 }
+                 */
             }
         });
-
-
         return view;
     }
-
-    // 아이템 터치 이벤트 리스너 구현
-    private AdapterView.OnItemClickListener onClickListItem = new AdapterView.OnItemClickListener() {
-        @Override               // 리스트뷰에서으 아이템이 선택될 때의 함수
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) { // 선택된 아이템에 대한 동작 함수
-
-        }
-    };
 
 
     @Override
@@ -194,7 +188,8 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
             if (resultCode == RESULT_OK) {
                 get_data = data.getStringExtra("ADD_TEXT");
                 //Toast.makeText(getActivity(), get_data, Toast.LENGTH_SHORT).show();
-                //read_file(FILENAME);
+               // read_file(FILENAME);
+
 
                 try {
                     FileInputStream fis = getActivity().openFileInput(FILENAME);
@@ -241,10 +236,11 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
                 }
 
 
-               // read_file(FILENAME);
+              // read_file(FILENAME);
 
                 try {
                     calendarlist.clear();
+                    flist.clear();
                     FileInputStream fis = getActivity().openFileInput(FILENAME);
                     byte[] buffer = new byte[fis.available()];
                     fis.read(buffer);
@@ -261,6 +257,8 @@ public class FragmentCalendar extends Fragment implements CalendarListAdapter.Re
                     calendarlist.clear();
                     calendarlist_adapter.notifyDataSetChanged();
                 }
+
+
             }
         }
     }
