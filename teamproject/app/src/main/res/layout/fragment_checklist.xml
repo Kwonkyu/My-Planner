@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tt_text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="오늘"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
 
-        <TextView
-            android:id="@+id/checklist_text_previous"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/divider_horizontal_textfield"
-            android:text="@string/checklist_text_previous"
-            android:textSize="30sp" />
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/today_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/checklist_recycler_previous"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/checklist_text_today"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/divider_horizontal_textfield"
-            android:text="@string/checklist_text_today"
-            android:textSize="30sp" />
+    <TextView
+        android:id="@+id/ttt_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내일"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/tomorrow_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/checklist_recycler_today"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/checklist_text_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/divider_horizontal_textfield"
-            android:text="@string/checklist_text_week"
-            android:textSize="30sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/checklist_recycler_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/checklist_text_far"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/divider_horizontal_textfield"
-            android:text="@string/checklist_text_far"
-            android:textSize="30sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/checklist_recycler_far"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-</ScrollView>
+    <TextView
+        android:id="@+id/tt_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이번 주"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/week_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#4682B4" />
+</LinearLayout>
