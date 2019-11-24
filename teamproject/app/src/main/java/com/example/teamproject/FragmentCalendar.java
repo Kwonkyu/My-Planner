@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +21,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import com.example.teamproject.R;
 
 import org.w3c.dom.Text;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -46,9 +48,11 @@ public class FragmentCalendar extends Fragment {
     private RecyclerView.Adapter calendarlist_adapter;
     private RecyclerView.LayoutManager calendarlist_manager;
     private ArrayList<String> calendarlist;
+    private ArrayList<String> flist;
     String date;
     String get_data;
     String FILENAME;
+    String te;
 
     private Intent mIntent;
 
@@ -71,6 +75,17 @@ public class FragmentCalendar extends Fragment {
                 Intent intent = new Intent(getActivity(), CalendarListItemAdd.class);
                 startActivityForResult(intent, CALENDARLIST_ADD_ITEM_REQUEST);
                 break;
+            case R.id.calendarlist_menu_removeall:
+                try {
+                    String lists="";        // list 의 값들을 이어붙여 저장할 변수 lists
+                    Log.d("FragmentCalendar_remove", "removing...");
+                    FileOutputStream fos = getActivity().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                    fos.write(lists.getBytes());    // lists 의 값을 저장
+                    fos.close();                    // 열었던 파일을 닫음
+                } catch (IOException e) {       //파일 관련 작업 시의 예외처리
+                    e.printStackTrace();
+                }
+
             default:
                 break;
         }
@@ -80,7 +95,10 @@ public class FragmentCalendar extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        mCalendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        date_TextView = (TextView) view.findViewById(R.id.calendar_date);
 
+        flist = new ArrayList<>();
         calendarlist = new ArrayList<>();
         calendarlist_view = view.findViewById(R.id.calendar_recycler_list);
         calendarlist_view.setHasFixedSize(true);
@@ -88,10 +106,6 @@ public class FragmentCalendar extends Fragment {
         calendarlist_view.setLayoutManager(calendarlist_manager);
         calendarlist_adapter = new CheckListAdapter(calendarlist);
         calendarlist_view.setAdapter(calendarlist_adapter);
-
-
-        mCalendarView = (CalendarView) view.findViewById(R.id.calendar_view);
-        date_TextView = (TextView) view.findViewById(R.id.calendar_date);
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(cal.YEAR);
@@ -101,17 +115,73 @@ public class FragmentCalendar extends Fragment {
         date_TextView.setText(date);
         FILENAME = year + "_" + month + "_" + dates + ".txt";
 
+        try {
+            calendarlist.clear();
+            FileInputStream fis = getActivity().openFileInput(FILENAME);
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            te = new String(buffer);        // 읽은 값을 te 에 저장
+            String[] array = te.split("/"); // 배열 array 에 "/" 가 나올때마다 잘라서 삽입
+            for(int i=0; i<array.length;i++) {
+                calendarlist.add(array[i]);
+                calendarlist_adapter = new CheckListAdapter(calendarlist);
+                calendarlist_view.setAdapter(calendarlist_adapter);
+                Log.d("FragmentCalendar", array[i]);
+            }
+            fis.close();                        // 열었던 파일을 닫음
+        } catch (IOException e) {
+            e.printStackTrace();                // 파일 관련 작업 시의 예외처리
+        }
 
     mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
         @Override
         public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
-            registerForContextMenu(calendarView);
+
+
             date = year +"/" + (month+1) + "/" + dayOfMonth;
-            Toast.makeText(getActivity(), date, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), date, Toast.LENGTH_SHORT).show();
             date_TextView.setText(date);
-            FILENAME = year + "_" + month + "_" + dayOfMonth + ".txt";
+            FILENAME = year + "_" + (month+1) + "_" + dayOfMonth + ".txt";
+            calendarlist.clear();
+/*
+            try {
+                String lists="";        // list 의 값들을 이어붙여 저장할 변수 lists
+                Log.d("FragmentCalendar_remove", "removing...");
+                FileOutputStream fos = getActivity().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write(lists.getBytes());    // lists 의 값을 저장
+                fos.close();                    // 열었던 파일을 닫음
+            } catch (IOException e) {       //파일 관련 작업 시의 예외처리
+                e.printStackTrace();
+            }
+*/
+            try {
+                FileInputStream fis = getActivity().openFileInput(FILENAME);
+                byte[] buffer = new byte[fis.available()];
+                fis.read(buffer);
+                te = new String(buffer);        // 읽은 값을 te 에 저장
+                Log.d("FragmentCalendar_read", te);
+                String[] array = te.split("/"); // 배열 array 에 "/" 가 나올때마다 잘라서 삽입
+                if(array[0]=="") {
+                    Log.d("FragmentCalendar_read", "first array is null!");
+                    for(int i=array.length; i>1; i--){
+                        array[i-1] = array[i];
+                    }
+                }
+                for(int i=0; i<array.length;i++) {
+                    calendarlist.add(array[i]);
+                    calendarlist_adapter = new CheckListAdapter(calendarlist);
+                    calendarlist_view.setAdapter(calendarlist_adapter);
+                    if(array[i]=="") Log.d("FragmentCalendar_read", "first array is null!!!!");
+                    Log.d("FragmentCalendar_read", array[i]);
+                }
+                fis.close();                        // 열었던 파일을 닫음
+            } catch (IOException e) {
+                e.printStackTrace();                // 파일 관련 작업 시의 예외처리
+            }
+
         }
     });
+
 
         return view;
     }
@@ -122,8 +192,57 @@ public class FragmentCalendar extends Fragment {
         if(requestCode == CALENDARLIST_ADD_ITEM_REQUEST) {     // requestCode 가 GET_STRING 인 경우
             if(resultCode == RESULT_OK) {
                 get_data = data.getStringExtra("ADD_TEXT");
+                //Toast.makeText(getActivity(), get_data, Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(getActivity(), get_data, Toast.LENGTH_SHORT).show();
+                try {
+                    FileInputStream fis = getActivity().openFileInput(FILENAME);
+                    if(!flist.isEmpty()) flist.clear();
+                    byte[] buffer = new byte[fis.available()];
+                    fis.read(buffer);
+                    te = new String(buffer);        // 읽은 값을 te 에 저장
+                    String[] array = te.split("/"); // 배열 array 에 "/" 가 나올때마다 잘라서 삽입
+                    for(int i=0; i<array.length;i++) {
+                        flist.add(array[i]);
+                        Log.d("FragmentCalendar_add", array[i]);
+                    }
+                    fis.close();                        // 열었던 파일을 닫음
+                } catch (IOException e) {
+                    e.printStackTrace();                // 파일 관련 작업 시의 예외처리
+                }
+
+                flist.add(get_data);
+
+                try {
+                    String lists="";        // list 의 값들을 이어붙여 저장할 변수 lists
+                    for(int i=0;i<flist.size();i++){
+                        lists = lists + flist.get(i)+"/";    // 항목마다 "/" 을 사이에 넣어가며 lists 에 list 값을 저장함
+                        Log.d("FragmentCalendar_save", flist.get(i));
+                    }
+                    FileOutputStream fos = getActivity().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                    fos.write(lists.getBytes());    // lists 의 값을 저장
+                    fos.close();                    // 열었던 파일을 닫음
+                } catch (IOException e) {       //파일 관련 작업 시의 예외처리
+                    e.printStackTrace();
+                }
+
+                try {
+                    calendarlist.clear();
+                    FileInputStream fis = getActivity().openFileInput(FILENAME);
+                    byte[] buffer = new byte[fis.available()];
+                    fis.read(buffer);
+                    te = new String(buffer);        // 읽은 값을 te 에 저장
+                    String[] array = te.split("/"); // 배열 array 에 "/" 가 나올때마다 잘라서 삽입
+                    for(int i=0; i<array.length;i++) {
+                        calendarlist.add(array[i]);
+                        calendarlist_adapter = new CheckListAdapter(calendarlist);
+                        calendarlist_view.setAdapter(calendarlist_adapter);
+                        Log.d("FragmentCalendar_read", array[i]);
+                    }
+                    fis.close();                        // 열었던 파일을 닫음
+                } catch (IOException e) {
+                    e.printStackTrace();                // 파일 관련 작업 시의 예외처리
+                }
+
             }
         }
     }
