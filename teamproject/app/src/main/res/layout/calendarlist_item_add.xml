@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingBottom="30dp"
-        android:text="뭐야왜안돼요"
-        android:textSize="30sp" />
+        android:paddingBottom="15dp"
+        android:text="일정 제목"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/calendarlist_edit_add"
@@ -21,9 +21,88 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:hint="@string/checklist_text_item_default"
+        android:hint="할 일의 제목을 입력해주세요"
         android:importantForAutofill="no"
         android:inputType="textLongMessage|textMultiLine|textPersonName" />
+
+    <TextView
+        android:id="@+id/calendarlist_text_add2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
+        android:text="일정 내용"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/calendarlist_edit_add2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="할 일의 내용을 입력해주세요"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage|textMultiLine|textPersonName" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:text="시작 날짜"
+            android:layout_gravity="right"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18dp"
+            android:id="@+id/start_button2"
+            android:onClick="OnClickHandler2"/>
+
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:text="시작 시간"
+        android:layout_gravity="right"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:id="@+id/start_button"
+        android:onClick="OnClickHandler"/>
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
+
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:text="종료 날짜"
+            android:layout_gravity="right"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18dp"
+            android:id="@+id/end_button2"
+            android:onClick="OnClickHandler2"/>
+
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:text="종료 시간"
+        android:layout_gravity="right"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:id="@+id/end_button"
+        android:onClick="OnClickHandler2"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="100dp"
