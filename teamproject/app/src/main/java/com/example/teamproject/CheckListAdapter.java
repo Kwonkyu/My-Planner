@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,6 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
     @Override @NonNull
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.checklist_item, parent, false);
-        // Link RecycleView's item layout.
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }

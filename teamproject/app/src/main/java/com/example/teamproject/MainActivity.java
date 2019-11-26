@@ -14,8 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTimetable fragmentTimetable = new FragmentTimetable();
-    private FragmentCalendar fragmentCalendar = new FragmentCalendar();
+    private com.example.teamproject.FragmentCalendar fragmentCalendar = new com.example.teamproject.FragmentCalendar();
     private FragmentChecklist fragmentChecklist = new FragmentChecklist();
+    private FragmentSetting fragmentSetting = new FragmentSetting();
     private BottomNavigationView bottomNavigationItemView;
 
     @Override
@@ -37,15 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
             switch(menuItem.getItemId())
             {
-                case R.id.searchItem:
+                case R.id.TimetableItem:
                     transaction.replace(R.id.frameLayout, fragmentTimetable).commitAllowingStateLoss();
 
                     break;
-                case R.id.cameraItem:
+                case R.id.CalendarItem:
                     transaction.replace(R.id.frameLayout, fragmentCalendar).commitAllowingStateLoss();
                     break;
-                case R.id.callItem:
+                case R.id.ChecklistItem:
                     transaction.replace(R.id.frameLayout, fragmentChecklist).commitAllowingStateLoss();
+                    break;
+                case R.id.SettingItem:
+                    transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
                     break;
             }
             return true;

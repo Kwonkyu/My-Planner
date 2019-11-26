@@ -19,6 +19,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.DialogFragment;
 
 public class CheckListItemAdd extends AppCompatActivity {
@@ -91,6 +92,7 @@ public class CheckListItemAdd extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.checklist_menu_save:
+
                 String text = input.getText().toString();
                 Intent intent = new Intent(this, FragmentChecklist.class);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_OK, text);

@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,12 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -73,13 +77,12 @@ public class FragmentChecklist extends Fragment {
                 Intent intent = new Intent(getActivity(), CheckListItemAdd.class);
                 startActivityForResult(intent, CHECKLIST_ADD_ITEM_REQUEST);
                 break;
-
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
 
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode){
