@@ -2,11 +2,13 @@
     <string name="app_name">teamproject</string>
     <string name="checklist_text_previous">이전</string>
     <string name="checklist_text_today">오늘</string>
-    <string name="checklist_text_tomorrow">내일</string>
-    <string name="checklist_text_week">이번 주</string>
+
+    <string name="checklist_text_week">이번주</string>
+    <string name="checklist_text_far">일주일 이상</string>
     <string name="checklist_menu_add">할일 추가</string>
     <string name="checklist_text_item_add">할일 추가</string>
     <string name="checklist_text_item_default">할 일을 입력해주세요</string>
+    <string name="checklist_button_datepicker">기한 선택</string>
 
     <string name="global_confirm">확인</string>
     <string name="global_deny">취소</string>

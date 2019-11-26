@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
+    android:gravity="center_vertical"
     android:orientation="vertical">
 
     <TextView
@@ -19,10 +19,40 @@
         android:id="@+id/checklist_edit_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_below="@id/checklist_text_add"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:hint="@string/checklist_text_item_default"
         android:importantForAutofill="no"
         android:inputType="textLongMessage|textMultiLine|textPersonName" />
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/checklist_text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checklist_edit_add"
+        android:layout_alignBaseline="@id/checklist_button_datepicker"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_toStartOf="@id/checklist_button_datepicker"
+        android:layout_toLeftOf="@id/checklist_button_datepicker"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/checklist_button_datepicker"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checklist_edit_add"
+        android:layout_alignRight="@id/checklist_edit_add"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/checklist_button_datepicker"
+        android:layout_alignEnd="@id/checklist_edit_add" />
+
+</RelativeLayout>
