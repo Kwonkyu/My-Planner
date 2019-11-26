@@ -3,21 +3,16 @@ package com.example.teamproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,17 +20,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teamproject.Views.MovableFloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.example.teamproject.CSchdule;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;

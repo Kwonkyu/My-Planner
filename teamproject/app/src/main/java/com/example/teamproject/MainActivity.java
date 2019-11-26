@@ -1,12 +1,16 @@
 package com.example.teamproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.teamproject.Timetable.FragmentTimetable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -31,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int request = requestCode & 0xffff;
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+        fragment.onActivityResult(request, resultCode, data);
+    }
+
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -40,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 case R.id.TimetableItem:
                     transaction.replace(R.id.frameLayout, fragmentTimetable).commitAllowingStateLoss();
-
                     break;
                 case R.id.CalendarItem:
                     transaction.replace(R.id.frameLayout, fragmentCalendar).commitAllowingStateLoss();

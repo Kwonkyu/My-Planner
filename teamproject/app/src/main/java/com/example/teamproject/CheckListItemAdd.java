@@ -13,14 +13,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.fragment.app.DialogFragment;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class CheckListItemAdd extends AppCompatActivity {
     private EditText input;
