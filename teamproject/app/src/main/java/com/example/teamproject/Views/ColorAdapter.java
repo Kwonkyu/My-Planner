@@ -60,7 +60,6 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         drawable.addState(new int[] { -android.R.attr.state_checked}, circle);
         drawable.addState(new int[] { android.R.attr.state_checked }, checkedDrawable);
         holder.radioButton.setBackground(drawable);
-
         holder.radioButton.setTag(item);
 
     }

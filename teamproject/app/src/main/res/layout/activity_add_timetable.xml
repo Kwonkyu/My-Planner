@@ -94,63 +94,145 @@
             android:id="@+id/check_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="월"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="화"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_wed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="수"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_thu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="목"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_fri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="금"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_sat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="토"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="일"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/beginTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00" />
-
-    <TextView
-        android:id="@+id/endTime"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="00:00" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/list_add_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <TextView
+            android:id="@+id/beginTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="50dp"
+            android:text="00:00"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="-"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:paddingRight="50dp"
+            android:text="00:00"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/list_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Button" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

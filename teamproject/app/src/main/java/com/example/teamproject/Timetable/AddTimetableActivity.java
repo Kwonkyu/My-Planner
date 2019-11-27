@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -135,6 +136,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         selectColor = "#f78c6c";
         //임시, 바꿔야함
         adapter2 = new ColorAdapter(this, colorItems);
+
         recycle.setAdapter(adapter2);
 
         //체크 박스 설정
@@ -148,6 +150,16 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         checkBoxes[6] = findViewById(R.id.check_sun);
 
 
+
+        for(int i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) buttonView.setTextColor(Color.rgb(255,255,255));
+                    else buttonView.setTextColor(Color.rgb(0,0,0));
+                }
+            });
+        }
         //리스트 뷰 설정
         list = findViewById(R.id.time_list);
         items = new ArrayList<>();
@@ -245,6 +257,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                 }
                 //추가 or 수정할 정보를 가지는 lecture 객체 생성
                 Lecture lec = new Lecture();
+                selectColor = colors[adapter2.selectedItem];
                 lec.setColor(selectColor);
                 lec.setId(mode.equals("ADD") ? lecList.size() : getIntent().getIntExtra("id",0));
                 lec.setName(tv1.getText().toString());
