@@ -3,6 +3,10 @@ package com.example.teamproject.Timetable;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -203,6 +207,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                                 ll.addView(tv);
                             }
 
+                            //시간표 생성
                             tv = new TextView(getActivity());
                             tv.setText(currentItem.getName() + "\n" + currentItem.getRoom() + "\n" + currentItem.getLecturer());
                             tv.setGravity(Gravity.CENTER);
@@ -214,11 +219,11 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                             time = endTime;
                             weight -= min;
                             if(min != 0) {
-                                tv.setBackgroundColor(Color.parseColor(currentItem.getColor()));
+                                GradientDrawable drawable = (GradientDrawable)ContextCompat.getDrawable(getActivity(), R.drawable.edge);
+                                drawable.setColor(Color.parseColor(currentItem.getColor()));
+                                tv.setBackground(drawable);
                             }
-                            else {
 
-                            }
                             tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()), min));
                             ll.addView(tv);
                             if(k == lectureList.size() - 1 && weight != 0) {

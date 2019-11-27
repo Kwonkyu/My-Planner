@@ -1,0 +1,27 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_checked="false">
+        <layer-list>
+            <!-- 배경 -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#e14f50" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- 배경 -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#e14f50" />
+                </shape>
+            </item>
+            <!-- 이미지 영역 -->
+            <item android:drawable="@drawable/check" android:top="4dp" android:right="4dp" android:bottom="4dp" android:left="4dp" />
+        </layer-list>
+    </item>
+
+
+</selector>

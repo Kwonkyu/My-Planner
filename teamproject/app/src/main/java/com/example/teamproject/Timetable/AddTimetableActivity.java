@@ -4,8 +4,12 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +30,7 @@ import com.example.teamproject.Model.DAY;
 import com.example.teamproject.Model.Lecture;
 import com.example.teamproject.R;
 import com.example.teamproject.Views.ColorAdapter;
+import com.example.teamproject.Views.ColorItemDecoration;
 import com.example.teamproject.Views.ListViewBtnAdapter;
 
 import java.io.BufferedInputStream;
@@ -36,6 +42,7 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 public class AddTimetableActivity extends AppCompatActivity implements ListViewBtnAdapter.ListBtnClickListener {
     TextView tv1, tv2, tv3;
@@ -100,21 +107,34 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         tv2 = findViewById(R.id.lecture_room);
         tv3 = findViewById(R.id.lecturer);
 
+        InputFilter inputFilter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                Pattern ps = Pattern.compile("^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\s\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+                if(ps.matcher(source).matches()){
+                    return source;
+                }
+                return "";
+            }
+        };
+        InputFilter[] filters = new InputFilter[] {inputFilter};
+
+        tv1.setFilters(filters);
+        tv2.setFilters(filters);
+        tv3.setFilters(filters);
+
         //컬러 리사이클러 뷰 설정
         recycle = findViewById(R.id.color_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recycle.setLayoutManager(layoutManager);
+        recycle.addItemDecoration(new ColorItemDecoration(50));
         colorItems = new ArrayList<>();
-        for(String s : colors) colorItems.add(s);
+        for(String s : colors) {
+            colorItems.add(s);
+        }
         selectColor = "#f78c6c";
         //임시, 바꿔야함
-        adapter2 = new ColorAdapter(this, colorItems, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectColor = (String)v.getTag();
-                Toast.makeText(getApplicationContext(),(String)v.getTag(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter2 = new ColorAdapter(this, colorItems);
         recycle.setAdapter(adapter2);
 
         //체크 박스 설정
