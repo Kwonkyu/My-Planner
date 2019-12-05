@@ -4,12 +4,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +33,7 @@ import com.example.teamproject.Views.ListViewBtnAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -52,12 +50,13 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
     CheckBox[] checkBoxes;
     ArrayList<String> colorItems;
     ArrayList<Lecture> lecList;
-    String selectColor, mode;
+    String selectColor, mode, currentTimetable;
     ListView list;
     ListViewBtnAdapter adapter;
     ArrayList<String> items;
     TextView startTimeTextView, endTimeTextView;
     String[] colors = {"#f78c6c","#feb44d", "#fcf087", "#e6e966", "#9ff4b9", "#42dc28", "#7acee1", "#d2a2e4"};
+    Long creationTime;
 
 
     @Override
@@ -66,19 +65,24 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         setContentView(R.layout.activity_add_timetable);
 
         mode = getIntent().getStringExtra("mode");
-
+        currentTimetable = getIntent().getStringExtra("filename");
         init();
 
         //파일을 미리 불러옴
         lecList = new ArrayList<>();
         try {
+            File file = new File(getFilesDir().getAbsolutePath(), "timetable_" + currentTimetable + ".txt");
+            creationTime = file.lastModified();
+
             //파일을 읽어옴
-            FileInputStream in = openFileInput("timetable.txt");
+            FileInputStream in = openFileInput("timetable_" + currentTimetable + ".txt");
             BufferedInputStream bin = new BufferedInputStream(in);
             ObjectInputStream oin = new ObjectInputStream(bin);
             lecList = (ArrayList<Lecture>) oin.readObject();
+            Log.d("ttttt",currentTimetable);
             oin.close();
         } catch(Exception e) {
+            creationTime = (long)0;
         }
 
         // 수정 모드
@@ -281,12 +285,19 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                 }
                 //파일을 저장
                 try{
-                    FileOutputStream fout = openFileOutput("timetable.txt", Context.MODE_PRIVATE);
+                    FileOutputStream fout = openFileOutput("timetable_" + currentTimetable + ".txt", Context.MODE_PRIVATE);
                     BufferedOutputStream bout = new BufferedOutputStream(fout);
                     ObjectOutputStream oout = new ObjectOutputStream(bout);
-
                     oout.writeObject(lecList);
                     oout.close();
+
+                    File file = new File(getFilesDir().getAbsolutePath(), "timetable_" + currentTimetable + ".txt");
+                    if(creationTime == (long)0) {
+                        file.setLastModified(System.currentTimeMillis());
+                    }
+                    else {
+                        file.setLastModified(creationTime);
+                    }
 
                     setResult(RESULT_OK);
                 } catch(Exception e) {
@@ -310,11 +321,21 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+                if(hourOfDay < 9) {
+                    hourOfDay = 9;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 빠른 시간은 오전 9시입니다.",Toast.LENGTH_SHORT).show();
+                }
+                else if(hourOfDay > 18 || (hourOfDay == 18 && minute > 0)) {
+                    hourOfDay = 18;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 늦은 시간은 오후 6시입니다.",Toast.LENGTH_SHORT).show();
+                }
                 startTimeTextView.setText((hourOfDay < 10 ?  "0" + hourOfDay : hourOfDay) + ":"  + (minute < 10 ? "0" + minute : minute));
             }
-        }, 12, 0, false);
+        }, 9, 0, false);
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         timePickerDialog.show();
     }
 
@@ -322,9 +343,19 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay < 9) {
+                    hourOfDay = 9;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 빠른 시간은 오전 9시입니다.",Toast.LENGTH_SHORT).show();
+                }
+                else if(hourOfDay > 18 || (hourOfDay == 18 && minute > 0)) {
+                    hourOfDay = 18;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 늦은 시간은 오후 6시입니다.",Toast.LENGTH_SHORT).show();
+                }
                 endTimeTextView.setText((hourOfDay < 10 ?  "0" + hourOfDay : hourOfDay) + ":"  + (minute < 10 ? "0" + minute : minute));
             }
-        }, 13, 0, false);
+        }, 18, 0, false);
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         timePickerDialog.show();
     }

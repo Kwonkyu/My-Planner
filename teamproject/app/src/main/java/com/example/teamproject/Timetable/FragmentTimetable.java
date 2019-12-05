@@ -12,18 +12,28 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.teamproject.MainActivity;
 import com.example.teamproject.Model.DAY;
 import com.example.teamproject.Model.Lecture;
 import com.example.teamproject.R;
@@ -33,6 +43,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -43,15 +54,35 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
     TableLayout tl1, tl2;
     View v;
     ArrayList<Lecture> list;
+    String currentTimetable;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_timetable, container, false);
+        setHasOptionsMenu(true);
+
         tl1 = v.findViewById(R.id.timetable_background);
         tl2 = v.findViewById(R.id.timetable);
+
+
+        currentTimetable = ((MainActivity)getActivity()).spinner.getSelectedItem().toString();
+        ((MainActivity)getActivity()).spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentTimetable = ((MainActivity)getActivity()).adapter.getItem(position);
+                try {
+                    createTimeTable(9, 18, currentTimetable);
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         createTimeTableBackground(9, 18);
         try {
-            createTimeTable(9, 18);
+            createTimeTable(9, 18, currentTimetable);
         } catch (Exception e) {
             Log.d("test11", e.getMessage());
         }
@@ -62,10 +93,54 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddTimetableActivity.class);
                 intent.putExtra("mode", "ADD");
+                intent.putExtra("filename", currentTimetable);
                 startActivityForResult(intent, 1);
             }
         });
         return v;
+    }
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.timetable_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.timetable_add :
+                Bundle bundle = new Bundle();
+                bundle.putString("mode","ADD");
+                TimetableManageDialog dialog = new TimetableManageDialog();
+                dialog.setArguments(bundle);
+                dialog.show(getActivity().getSupportFragmentManager(), "1");
+                break;
+            case R.id.timetable_revise:
+                bundle = new Bundle();
+                bundle.putString("mode","REVISE");
+                bundle.putString("filename", currentTimetable);
+                dialog = new TimetableManageDialog();
+                dialog.setArguments(bundle);
+                dialog.show(getActivity().getSupportFragmentManager(), "2");
+                break;
+            case R.id.timetable_delete:
+                bundle = new Bundle();
+                bundle.putString("filename", currentTimetable);
+                TimetableDeleteDialog deleteDialog = new TimetableDeleteDialog();
+                deleteDialog.setArguments(bundle);
+                deleteDialog.show(getActivity().getSupportFragmentManager(), "1");
+                break;
+            default:
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void createTimeTableBackground(int startT, int endT){
@@ -89,7 +164,9 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                 //공통적인 속성 설정
                 tv.setGravity(Gravity.CENTER);
                 tv.setTextSize(14);
-                tv.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edge));
+                GradientDrawable drawable = (GradientDrawable)ContextCompat.getDrawable(getActivity(), R.drawable.edge);
+                drawable.setColor(Color.parseColor("#FFFFFF"));
+                tv.setBackground(drawable);
 
                 //기본 텍스트 및 id 추가
                 if(i == startT - 1 && j != -1) tv.setText(DAY.values()[j].getDay());
@@ -110,7 +187,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         }
     }
 
-    public void createTimeTable(int startT, int endT) throws Exception{
+    public void createTimeTable(int startT, int endT, String filename) throws Exception{
         TableRow tr;
         TextView tv;
 
@@ -122,7 +199,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         list = new ArrayList<>();
 
         //파일을 읽어옴
-        FileInputStream fin = getActivity().openFileInput("timetable.txt");
+        FileInputStream fin = getActivity().openFileInput("timetable_" + filename + ".txt");
         BufferedInputStream bin = new BufferedInputStream(fin);
         ObjectInputStream oin = new ObjectInputStream(bin);
         list = (ArrayList<Lecture>) oin.readObject();
@@ -226,6 +303,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
 
                             tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()), min));
                             ll.addView(tv);
+
                             if(k == lectureList.size() - 1 && weight != 0) {
                                 tv = new TextView(getActivity());
                                 tv.setGravity(Gravity.CENTER);
@@ -257,7 +335,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
             for(Lecture l : list) {
                 l.setId(list.indexOf(l));
             }
-            FileOutputStream fout = getActivity().openFileOutput("timetable.txt", Context.MODE_PRIVATE);
+            FileOutputStream fout = getActivity().openFileOutput("timetable_" + currentTimetable + ".txt", Context.MODE_PRIVATE);
             BufferedOutputStream bout = new BufferedOutputStream(fout);
             ObjectOutputStream oout = new ObjectOutputStream(bout);
 
@@ -279,13 +357,13 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         if(resultCode == getActivity().RESULT_OK) {
             if (requestCode == 1) {
                 try {
-                    createTimeTable(9, 18);
+                    createTimeTable(9, 18, currentTimetable);
                 } catch (Exception e) {
                 }
             }
             else if(requestCode == 2) {
                 try {
-                    createTimeTable(9, 18);
+                    createTimeTable(9, 18, currentTimetable);
                 } catch (Exception e) {
                 }
             }
@@ -299,6 +377,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
     public boolean onLongClick(View v) {
         Bundle bundle = new Bundle();
         bundle.putInt("key", (int)v.getTag());
+        bundle.putString("filename", currentTimetable);
         TimetableDialog dialog = new TimetableDialog();
         dialog.setArguments(bundle);
         dialog.show(getActivity().getSupportFragmentManager(), "1");
