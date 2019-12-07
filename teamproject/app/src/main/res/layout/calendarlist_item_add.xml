@@ -2,11 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:id="@+id/add_calendar_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:layout_gravity="center"
+            android:id="@+id/add_toolbar_title"
+            android:textSize="20sp"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
-        android:id="@+id/calendarlist_text_add"
+        android:id="@+id/calendarlist_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
@@ -16,7 +33,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/calendarlist_edit_add"
+        android:id="@+id/calendarlist_edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -26,7 +43,7 @@
         android:inputType="textLongMessage|textMultiLine|textPersonName" />
 
     <TextView
-        android:id="@+id/calendarlist_text_add2"
+        android:id="@+id/calendarlist_text_work"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -37,7 +54,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/calendarlist_edit_add2"
+        android:id="@+id/calendarlist_edit_work"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -60,7 +77,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="15dp"
             android:textSize="18dp"
-            android:id="@+id/start_button2"
+            android:id="@+id/start_day_btn"
             android:onClick="OnClickHandler2"/>
 
     <Button
@@ -71,7 +88,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="15dp"
         android:textSize="18dp"
-        android:id="@+id/start_button"
+        android:id="@+id/start_time_btn"
         android:onClick="OnClickHandler"/>
     </LinearLayout>
 
@@ -89,7 +106,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="15dp"
             android:textSize="18dp"
-            android:id="@+id/end_button2"
+            android:id="@+id/end_day_btn"
             android:onClick="OnClickHandler2"/>
 
     <Button
@@ -100,19 +117,9 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="15dp"
         android:textSize="18dp"
-        android:id="@+id/end_button"
+        android:id="@+id/end_tiem_btn"
         android:onClick="OnClickHandler2"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="추가하기"
-        android:layout_gravity="right"
-        android:layout_marginRight="36dp"
-        android:layout_marginTop="15dp"
-        android:textSize="18dp"
-        android:id="@+id/add_button"
-        android:onClick="onClick"/>
 
 </LinearLayout>

@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 
 public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyViewHolder> {
-    private ArrayList<CheckListItem> dataSet;
+    private ArrayList<String> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView listItem;
@@ -39,7 +39,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
         }
     }
     // Data structure set(ArrayList in FragmentChecklist).
-    public CheckListAdapter(ArrayList<CheckListItem> dataSet){
+    public CheckListAdapter(ArrayList<String> dataSet){
         this.dataSet = dataSet;
     }
 
@@ -53,10 +53,10 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String text = dataSet.get(position).getItemText();
-        String date = dataSet.get(position).getItemDateString();
+        String text = dataSet.get(position);//.getItemText();
+       // String date = dataSet.get(position);//.getItemDateString();
         holder.listItem.setText(text);
-        holder.itemDate.setText(date);
+       // holder.itemDate.setText(date);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
