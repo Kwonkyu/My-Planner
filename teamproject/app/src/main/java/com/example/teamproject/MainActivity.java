@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.teamproject.Calendar.FragmentCalender;
+import com.example.teamproject.Checklist.FragmentChecklist;
 import com.example.teamproject.Timetable.FragmentTimetable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

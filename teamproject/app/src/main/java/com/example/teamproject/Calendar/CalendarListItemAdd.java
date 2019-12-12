@@ -1,4 +1,4 @@
-package com.example.teamproject;
+package com.example.teamproject.Calendar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -24,6 +24,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.teamproject.DBHelper;
+import com.example.teamproject.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

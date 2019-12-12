@@ -1,6 +1,5 @@
-package com.example.teamproject;
+package com.example.teamproject.Checklist;
 
-import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import com.example.teamproject.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

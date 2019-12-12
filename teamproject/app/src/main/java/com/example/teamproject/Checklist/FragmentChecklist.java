@@ -1,4 +1,4 @@
-package com.example.teamproject;
+package com.example.teamproject.Checklist;
 
 
 import android.annotation.TargetApi;
@@ -11,6 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.teamproject.Checklist.CheckListItemAdd;
+import com.example.teamproject.Model.CheckListItem;
+import com.example.teamproject.R;
+import com.example.teamproject.Views.CheckListAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

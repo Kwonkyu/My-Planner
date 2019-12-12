@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:name=".TeamProjectApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckListItemAdd"></activity>
+        <activity android:name=".Checklist.CheckListItemAdd"></activity>
         <activity
             android:theme="@style/noActionTheme"
-            android:name=".CalendarListItemAdd"></activity>
+            android:name=".Calendar.CalendarListItemAdd"></activity>
 
         <activity android:name=".MainActivity">
             <intent-filter>

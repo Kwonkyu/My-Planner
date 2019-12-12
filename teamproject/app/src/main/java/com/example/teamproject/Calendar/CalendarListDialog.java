@@ -1,6 +1,5 @@
-package com.example.teamproject;
+package com.example.teamproject.Calendar;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -9,27 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.example.teamproject.Model.Lecture;
-import com.example.teamproject.Timetable.AddTimetableActivity;
-import com.example.teamproject.Timetable.FragmentTimetable;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
+import com.example.teamproject.DBHelper;
+import com.example.teamproject.R;
 
 public class CalendarListDialog extends DialogFragment {
 

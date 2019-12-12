@@ -1,4 +1,4 @@
-package com.example.teamproject;
+package com.example.teamproject.Model;
 
 import android.annotation.TargetApi;
 

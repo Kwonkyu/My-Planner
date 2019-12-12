@@ -10,6 +10,6 @@ public class TeamProjectApplication extends Application {
     public void onCreate() {
         super.onCreate();
         this.applicationContext = this.getApplicationContext();
-        ScheduleSharePrefernceManager.getInstance().init(applicationContext);
+//        ScheduleSharePrefernceManager.getInstance().init(applicationContext);
     }
 }
