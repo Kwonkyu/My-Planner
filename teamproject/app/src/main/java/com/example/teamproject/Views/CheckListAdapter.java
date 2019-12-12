@@ -1,15 +1,16 @@
-package com.example.teamproject;
-
+package com.example.teamproject.Views;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.teamproject.Model.CheckListItem;
+import com.example.teamproject.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +26,10 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
         TextView itemDate;
         TextView itemPlace;
         ImageView imageView;
-        boolean isDone = false;
+        boolean isDone;
         // See checklist_item.xml. There is two TextView for checklist item text and expiration date.
         // Boolean variable for marking checklist item's state between done and undone.
+
         public MyViewHolder(View v){
             super(v);
             listItem = v.findViewById(R.id.checklist_item);
@@ -35,22 +37,28 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
             itemPlace = v.findViewById(R.id.checklist_item_place);
             imageView = v.findViewById(R.id.checklist_item_checkbox);
             // Link view to variables.
-            v.setOnClickListener(new View.OnClickListener(){
+
+            imageView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     isDone = !isDone;
+                    // TODO: how to change dataSet's isDone variable? Need to send broadcast?
                     if(isDone) {
-                        view.setBackgroundColor(Color.LTGRAY);
                         listItem.setPaintFlags(listItem.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        listItem.setTextColor(Color.LTGRAY);
                         itemDate.setPaintFlags(itemDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        itemDate.setTextColor(Color.LTGRAY);
                         itemPlace.setPaintFlags(itemPlace.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        itemPlace.setTextColor(Color.LTGRAY);
                         imageView.setImageResource(R.drawable.checked);
                     }
                     else{
-                        view.setBackgroundColor(Color.TRANSPARENT);
                         listItem.setPaintFlags(0);
+                        listItem.setTextColor(Color.BLACK);
                         itemDate.setPaintFlags(0);
+                        itemDate.setTextColor(Color.BLACK);
                         itemPlace.setPaintFlags(0);
+                        itemPlace.setTextColor(Color.BLACK);
                         imageView.setImageResource(R.drawable.unchecked);
                     }
                     // Change background's color between LightGray(marked) and Transparent(unmarked).
@@ -60,7 +68,8 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    // TODO: edit or remove checklist item? 
+                    // TODO: edit or remove checklist item?
+                    Toast.makeText(view.getContext(), "long click", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });
@@ -84,10 +93,12 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.MyVi
         String text = dataSet.get(position).getItemText();
         String date = dataSet.get(position).getItemDateString();
         String place = dataSet.get(position).getItemPlace();
+        Boolean isDone = dataSet.get(position).getDone();
 
         holder.listItem.setText(text);
         holder.itemDate.setText(date);
         holder.itemPlace.setText(place);
+        holder.isDone = isDone;
     }
 
     // Return the size of your dataset (invoked by the layout manager)

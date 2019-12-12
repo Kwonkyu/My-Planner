@@ -1,6 +1,5 @@
 package com.example.teamproject;
 
-
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.teamproject.Model.CheckListItem;
+import com.example.teamproject.Views.CheckListAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
