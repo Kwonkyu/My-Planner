@@ -11,15 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.gson.GsonBuilder;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.Calendar;
 
 public class FragmentSetting extends Fragment {
-
-    private MaterialCalendarView mCalendar_view ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
