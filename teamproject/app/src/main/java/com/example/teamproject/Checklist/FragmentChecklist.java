@@ -1,9 +1,12 @@
 package com.example.teamproject.Checklist;
 
-
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.teamproject.Checklist.CheckListItemAdd;
+import com.example.teamproject.DBHelper;
 import com.example.teamproject.Model.CheckListItem;
 import com.example.teamproject.R;
 import com.example.teamproject.Views.CheckListAdapter;
@@ -40,6 +43,9 @@ public class FragmentChecklist extends Fragment {
     private enum RangeCategory {BEFORE, TODAY, WEEK, FAR}
     // Constant int and string used in Intent, File I/O, etc...
 
+    public static SQLiteDatabase db;
+    // SQLiteDatabase related variables
+
     private RecyclerView checklist_previous, checklist_today, checklist_week, checklist_far;
     private RecyclerView.Adapter previous_adapter, today_adapter, week_adapter, far_adapter;
     private RecyclerView.LayoutManager previous_manager, today_manager, week_manager, far_manager;
@@ -50,20 +56,26 @@ public class FragmentChecklist extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        DBHelper helper = new DBHelper(getContext());
+        try {
+            db = helper.getWritableDatabase();
+        } catch (SQLiteException e) {
+            db = helper.getReadableDatabase();
+        }
     }
 
     @Override
     public void onResume() {
-        // TODO: implement checklist load from database feature(should be ordered)
         super.onResume();
-        Toast.makeText(getContext(), "onResume()", Toast.LENGTH_SHORT).show();
+        readFromDB();
+        updateView();
     }
 
     @Override
     public void onStop() {
-        // TODO: implement checklist backup to database feature
         super.onStop();
-        Toast.makeText(getContext(), "onStop()", Toast.LENGTH_SHORT).show();
+        clearContainer();
     }
 
     @Override
@@ -83,8 +95,8 @@ public class FragmentChecklist extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
-
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode){
@@ -95,36 +107,9 @@ public class FragmentChecklist extends Fragment {
                         String expireDate = data.getStringExtra(CHECKLIST_ADD_ITEM_DATE);
                         String placeText = data.getStringExtra(CHECKLIST_ADD_ITEM_PLACE);
                         // Get checklist item text and expiration date
-                        Calendar cal = Calendar.getInstance();
-                        String currentDate = String.format(Locale.KOREAN,"%d/%d/%d",
-                                cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
-                        // Parse today's date to string in format of yyyy/mm/dd using
-                        switch(dateComparator(currentDate, expireDate)){
-                            // Compare dates(today, expiration date), add in corresponding RecyclerView.
-                            // Checklist item is instantiated as CheckListItem class.
-                            case BEFORE:
-                                previous.add(new CheckListItem(itemText, expireDate, placeText));
-                                previous_adapter.notifyDataSetChanged();
-                                break;
 
-                            case TODAY:
-                                today.add(new CheckListItem(itemText, expireDate, placeText));
-                                today_adapter.notifyDataSetChanged();
-                                break;
-
-                            case WEEK:
-                                week.add(new CheckListItem(itemText, expireDate, placeText));
-                                week_adapter.notifyDataSetChanged();
-                                break;
-
-                            case FAR:
-                                far.add(new CheckListItem(itemText, expireDate, placeText));
-                                far_adapter.notifyDataSetChanged();
-                                break;
-
-                            default:
-                                Toast.makeText(getContext(), "Error on adding item", Toast.LENGTH_SHORT).show();
-                        }
+                        insertToDB(itemText, expireDate, placeText);
+                        // Insert new item to DB
                         break;
                 }
                 break;
@@ -132,6 +117,86 @@ public class FragmentChecklist extends Fragment {
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void insertToDB(String content, String expirationDate, String location){
+        String[] date = expirationDate.split("/");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+
+        int dateInt = year * 10000 + month * 100 + day;
+        String query = "INSERT INTO checklist (content, expire, place, done) values (?, ?, ?, ?)";
+        Object[] params = {content, dateInt, location, 0};
+        db.execSQL(query, params);
+    }
+
+    private void insertToCategory(String content, String expirationDate, String location, boolean done){
+        Calendar cal = Calendar.getInstance();
+        String currentDate = String.format(Locale.KOREAN,"%d/%d/%d",
+                cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+        // Parse today's date to string in format of yyyy/mm/dd using
+
+        switch(dateComparator(currentDate, expirationDate)){
+            // Compare dates(today, expiration date), add in corresponding RecyclerView.
+            // Checklist item is instantiated as CheckListItem class.
+            case BEFORE:
+                previous.add(new CheckListItem(content, expirationDate, location, done));
+                Log.d("InsertToCategory:Before", content+expirationDate+location);
+                break;
+
+            case TODAY:
+                today.add(new CheckListItem(content, expirationDate, location, done));
+                Log.d("InsertToCategory:TODAY", content+expirationDate+location);
+                break;
+
+            case WEEK:
+                week.add(new CheckListItem(content, expirationDate, location, done));
+                Log.d("InsertToCategory:WEEK", content+expirationDate+location);
+                break;
+
+            case FAR:
+                far.add(new CheckListItem(content, expirationDate, location, done));
+                Log.d("InsertToCategory:FAR", content+expirationDate+location);
+                break;
+
+            default:
+                Toast.makeText(getContext(), "Error on adding item", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateView(){
+        previous_adapter.notifyDataSetChanged();
+        today_adapter.notifyDataSetChanged();
+        week_adapter.notifyDataSetChanged();
+        far_adapter.notifyDataSetChanged();
+    }
+
+    private void clearContainer(){
+        previous.clear();
+        today.clear();
+        week.clear();
+        far.clear();
+    }
+
+    private void readFromDB(){
+        String query = "SELECT * FROM checklist ORDER BY expire";
+        Cursor c = db.rawQuery(query, null);
+        while(c.moveToNext()){
+            String content = c.getString(c.getColumnIndex("content"));
+            int expirationDate = c.getInt(c.getColumnIndex("expire"));
+            String place = c.getString(c.getColumnIndex("place"));
+            boolean done = (c.getInt(c.getColumnIndex("done")) == 1);
+
+            int year = expirationDate / 10000;
+            int month = (expirationDate / 100) % 100;
+            int day = expirationDate % 100;
+
+            String expire = String.format(Locale.KOREAN, "%d/%d/%d", year, month, day);
+            Log.d("READ: ", content+expire+place);
+            insertToCategory(content, expire, place, done);
+        }
+        c.close();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

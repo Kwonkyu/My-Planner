@@ -17,6 +17,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE calendar ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "title TEXT, work TEXT, startday INTEGER, starttime INTEGER, endday INTEGER, endtime INTEGER);");
 
+        db.execSQL("CREATE TABLE checklist (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "content TEXT, expire INTEGER, place TEXT, done BOOLEAN);");
     }
 
     @Override
