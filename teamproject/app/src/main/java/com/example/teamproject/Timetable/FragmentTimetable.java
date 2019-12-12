@@ -16,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -298,7 +299,6 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         TimetableDialog dialog = new TimetableDialog();
         dialog.setArguments(bundle);
         dialog.show(getActivity().getSupportFragmentManager(), "1");
-
 
         return false;
     }

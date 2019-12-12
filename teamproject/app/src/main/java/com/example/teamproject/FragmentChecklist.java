@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -28,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +39,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+
 import static android.content.Context.MODE_PRIVATE;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class FragmentChecklist extends Fragment {
