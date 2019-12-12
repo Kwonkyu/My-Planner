@@ -31,9 +31,10 @@ public class FragmentChecklist extends Fragment {
     static final int CHECKLIST_ADD_ITEM_RESULT = 1001;
     static final String CHECKLIST_ADD_ITEM_OK = "[OK]";
     static final String CHECKLIST_ADD_ITEM_DATE = "[DATE]";
-    static final String SAVE_FILENAME = "checklist_save.txt";
+    static final String CHECKLIST_ADD_ITEM_PLACE = "[PLACE]";
     private enum RangeCategory {BEFORE, TODAY, WEEK, FAR}
     // Constant int and string used in Intent, File I/O, etc...
+
     private RecyclerView checklist_previous, checklist_today, checklist_week, checklist_far;
     private RecyclerView.Adapter previous_adapter, today_adapter, week_adapter, far_adapter;
     private RecyclerView.LayoutManager previous_manager, today_manager, week_manager, far_manager;
@@ -48,16 +49,16 @@ public class FragmentChecklist extends Fragment {
 
     @Override
     public void onResume() {
-        // TODO: implement checklist backup file load feature
-        // TODO: checklist item should be ordered and categorized by expiration date
+        // TODO: implement checklist load from database feature(should be ordered)
         super.onResume();
+        Toast.makeText(getContext(), "onResume()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStop() {
-        // TODO: implement checklist backup file save feature
-//        FileOutputStream fos = getContext().openFileOutput(SAVE_FILENAME, Context.MODE_PRIVATE);
+        // TODO: implement checklist backup to database feature
         super.onStop();
+        Toast.makeText(getContext(), "onStop()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -87,6 +88,7 @@ public class FragmentChecklist extends Fragment {
                     case CHECKLIST_ADD_ITEM_RESULT: // properly added from called activity
                         String itemText = data.getStringExtra(CHECKLIST_ADD_ITEM_OK);
                         String expireDate = data.getStringExtra(CHECKLIST_ADD_ITEM_DATE);
+                        String placeText = data.getStringExtra(CHECKLIST_ADD_ITEM_PLACE);
                         // Get checklist item text and expiration date
                         Calendar cal = Calendar.getInstance();
                         String currentDate = String.format(Locale.KOREAN,"%d/%d/%d",
@@ -96,22 +98,22 @@ public class FragmentChecklist extends Fragment {
                             // Compare dates(today, expiration date), add in corresponding RecyclerView.
                             // Checklist item is instantiated as CheckListItem class.
                             case BEFORE:
-                                previous.add(new CheckListItem(itemText, expireDate));
+                                previous.add(new CheckListItem(itemText, expireDate, placeText));
                                 previous_adapter.notifyDataSetChanged();
                                 break;
 
                             case TODAY:
-                                today.add(new CheckListItem(itemText, expireDate));
+                                today.add(new CheckListItem(itemText, expireDate, placeText));
                                 today_adapter.notifyDataSetChanged();
                                 break;
 
                             case WEEK:
-                                week.add(new CheckListItem(itemText, expireDate));
+                                week.add(new CheckListItem(itemText, expireDate, placeText));
                                 week_adapter.notifyDataSetChanged();
                                 break;
 
                             case FAR:
-                                far.add(new CheckListItem(itemText, expireDate));
+                                far.add(new CheckListItem(itemText, expireDate, placeText));
                                 far_adapter.notifyDataSetChanged();
                                 break;
 
@@ -135,7 +137,6 @@ public class FragmentChecklist extends Fragment {
         far = new ArrayList<>();
         // data structures for RecyclerView.
 
-        // TODO: Sort items by dates.
         checklist_previous = (RecyclerView)rootView.findViewById(R.id.checklist_recycler_previous);
         checklist_today = (RecyclerView)rootView.findViewById(R.id.checklist_recycler_today);
         checklist_week = (RecyclerView)rootView.findViewById(R.id.checklist_recycler_week);

@@ -14,7 +14,8 @@ android:layout_height="match_parent">
             android:id="@+id/checklist_text_previous"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
+            android:layout_marginBottom="10dp"
+            android:background="@color/checklistColorPrimary"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
@@ -23,7 +24,7 @@ android:layout_height="match_parent">
             android:paddingRight="10dp"
             android:paddingBottom="4dp"
             android:text="@string/checklist_text_previous"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checklist_recycler_previous"
@@ -34,7 +35,8 @@ android:layout_height="match_parent">
             android:id="@+id/checklist_text_today"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
+            android:layout_marginBottom="10dp"
+            android:background="@color/checklistColorPrimary"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
@@ -43,7 +45,7 @@ android:layout_height="match_parent">
             android:paddingRight="10dp"
             android:paddingBottom="4dp"
             android:text="@string/checklist_text_today"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checklist_recycler_today"
@@ -54,7 +56,8 @@ android:layout_height="match_parent">
             android:id="@+id/checklist_text_week"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
+            android:layout_marginBottom="10dp"
+            android:background="@color/checklistColorPrimary"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
@@ -63,7 +66,7 @@ android:layout_height="match_parent">
             android:paddingRight="10dp"
             android:paddingBottom="4dp"
             android:text="@string/checklist_text_week"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checklist_recycler_week"
@@ -74,16 +77,17 @@ android:layout_height="match_parent">
             android:id="@+id/checklist_text_far"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
+            android:layout_marginBottom="10dp"
+            android:background="@color/checklistColorPrimary"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
             android:paddingTop="4dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
+            android:paddingBottom="4dp"
             android:text="@string/checklist_text_far"
-            android:textSize="30sp"
-            android:paddingBottom="4dp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checklist_recycler_far"

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class CheckListItem {
     private String itemText;
     private LocalDate itemDate;
+    private String itemPlace;
     // itemText for checklist item's text, itemDate for checklist item's expiration date.
 
     public String getItemText() {
@@ -21,15 +22,20 @@ public class CheckListItem {
     public void setItemDate(LocalDate itemDate) {this.itemDate = itemDate;}
     // Getters and Setters for each member.
 
-    public CheckListItem(String text, LocalDate date){
+    public String getItemPlace() { return itemPlace; }
+    public void setItemPlace(String itemPlace) { this.itemPlace = itemPlace; }
+
+    public CheckListItem(String text, LocalDate date, String place){
         setItemText(text);
         setItemDate(date);
+        setItemPlace(place);
     } // Constructor for String and LocalDate type
     @TargetApi(26)
-    public CheckListItem(String text, String date){
+    public CheckListItem(String text, String date, String place){
         setItemText(text);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/M/d");
         LocalDate localDate = LocalDate.parse(date, formatter);
         setItemDate(localDate);
+        setItemPlace(place);
     } // Constructor for String and String type(yyyy/mm/dd format)
 }
