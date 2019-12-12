@@ -32,7 +32,6 @@ public class CheckListItemAdd extends AppCompatActivity {
         }
         // link date string from constructor.
 
-        @Override @NonNull @TargetApi(26)
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             String[] ymd = dateText.getText().toString().split("/");
             // Split yyyy/mm/dd format date string with "/" delimiter.
@@ -91,7 +90,6 @@ public class CheckListItemAdd extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.checklist_menu_save:
-
                 String text = input.getText().toString();
                 Intent intent = new Intent(this, FragmentChecklist.class);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_OK, text);
