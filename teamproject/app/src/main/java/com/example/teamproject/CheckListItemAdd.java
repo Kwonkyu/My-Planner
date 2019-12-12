@@ -30,7 +30,6 @@ public class CheckListItemAdd extends AppCompatActivity {
         void setButtonView(Button button) { dateButton = button; }
         // link date string from constructor.
 
-        @Override @NonNull @TargetApi(26)
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             String[] ymd = dateString.split("/");
             // Split yyyy/mm/dd format date string with "/" delimiter.
