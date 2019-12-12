@@ -30,7 +30,6 @@
             android:paddingLeft="5dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/checklistTextColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -44,7 +43,6 @@
             android:paddingLeft="5dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/checklistTextColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -58,7 +56,6 @@
             android:paddingLeft="5dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/checklistTextColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

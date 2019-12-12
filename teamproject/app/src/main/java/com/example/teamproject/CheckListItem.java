@@ -1,4 +1,4 @@
-package com.example.teamproject.Model;
+package com.example.teamproject;
 
 import android.annotation.TargetApi;
 
@@ -9,7 +9,6 @@ public class CheckListItem {
     private String itemText;
     private LocalDate itemDate;
     private String itemPlace;
-    private Boolean isDone;
     // itemText for checklist item's text, itemDate for checklist item's expiration date.
 
     public String getItemText() {
@@ -26,14 +25,10 @@ public class CheckListItem {
     public String getItemPlace() { return itemPlace; }
     public void setItemPlace(String itemPlace) { this.itemPlace = itemPlace; }
 
-    public Boolean getDone() { return isDone; }
-    public void setDone(Boolean done) { isDone = done; }
-
     public CheckListItem(String text, LocalDate date, String place){
         setItemText(text);
         setItemDate(date);
         setItemPlace(place);
-        setDone(false);
     } // Constructor for String and LocalDate type
     @TargetApi(26)
     public CheckListItem(String text, String date, String place){
@@ -42,6 +37,5 @@ public class CheckListItem {
         LocalDate localDate = LocalDate.parse(date, formatter);
         setItemDate(localDate);
         setItemPlace(place);
-        setDone(false);
     } // Constructor for String and String type(yyyy/mm/dd format)
 }
