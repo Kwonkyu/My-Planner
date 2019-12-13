@@ -24,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private FragmentChecklist fragmentChecklist = new FragmentChecklist();
     private FragmentSetting fragmentSetting = new FragmentSetting();
     private BottomNavigationView bottomNavigationItemView;
-//    private FragmentTransaction transaction;
+
+    static final String idCalendar = "CALENDAR";
+    static final String idChecklist = "CHECKLIST";
+    static final String idSetting = "SETTING";
+    static final String idTimetable = "TIMETABLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setReorderingAllowed(true);
-        transaction.replace(R.id.frameLayout, fragmentTimetable).commitAllowingStateLoss();
+        transaction.add(R.id.frameLayout, fragmentCalendar, idCalendar);
+        transaction.add(R.id.frameLayout, fragmentChecklist, idChecklist);
+        transaction.add(R.id.frameLayout, fragmentSetting, idSetting);
+        transaction.add(R.id.frameLayout, fragmentTimetable, idTimetable);
+        transaction.commit();
 
         bottomNavigationItemView = findViewById(R.id.navigationView);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
-//        transaction = fragmentManager.beginTransaction();
     }
 
     @Override
@@ -49,27 +55,51 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
-        Fragment old = fragmentTimetable;
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
+            Fragment target;
             switch(menuItem.getItemId())
             {
                 case R.id.TimetableItem:
-                    transaction.replace(R.id.frameLayout, fragmentTimetable).commitAllowingStateLoss();
+                    target = fragmentManager.findFragmentByTag(idTimetable);
+                    if(target != null) {
+                        fragmentManager.beginTransaction().show(target).commit();
+                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
+                        fragmentManager.beginTransaction().hide(fragmentChecklist).commit();
+                        fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
+                    }
                     break;
+
                 case R.id.CalendarItem:
-                    transaction.replace(R.id.frameLayout, fragmentCalendar).commitAllowingStateLoss();
+                    target = fragmentManager.findFragmentByTag(idCalendar);
+                    if(target != null) {
+                        fragmentManager.beginTransaction().show(target).commit();
+                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
+                        fragmentManager.beginTransaction().hide(fragmentTimetable).commit();
+                        fragmentManager.beginTransaction().hide(fragmentChecklist).commit();
+                    }
                     break;
+
                 case R.id.ChecklistItem:
-                    transaction.replace(R.id.frameLayout, fragmentChecklist).commitAllowingStateLoss();
+                    target = fragmentManager.findFragmentByTag(idChecklist);
+                    if(target != null) {
+                        fragmentManager.beginTransaction().show(target).commit();
+                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
+                        fragmentManager.beginTransaction().hide(fragmentTimetable).commit();
+                        fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
+                    }
                     break;
+
                 case R.id.SettingItem:
-                    transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
+                    target = fragmentManager.findFragmentByTag(idSetting);
+                    if(target != null) {
+                        fragmentManager.beginTransaction().show(target).commit();
+                        fragmentManager.beginTransaction().hide(fragmentTimetable);
+                        fragmentManager.beginTransaction().hide(fragmentChecklist);
+                        fragmentManager.beginTransaction().hide(fragmentCalendar);
+                    }
                     break;
-            }
+            } // https://medium.com/sweet-bytes/switching-between-fragments-without-the-mindless-killing-spree-9efee5f51924
             return true;
         }
     }
