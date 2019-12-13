@@ -33,6 +33,14 @@ public class CheckListItem {
     public boolean getDone(){ return isDone; }
     public void setDone(boolean isDone){ this.isDone = isDone; }
 
+    public boolean equals(CheckListItem c){
+        return id == c.id &&
+                itemText.equals(c.itemText) &&
+                itemDate.equals(c.itemDate) &&
+                itemPlace.equals(c.itemPlace) &&
+                isDone == c.isDone;
+    }
+
     public CheckListItem(int id, String text, LocalDate date, String place, boolean isDone){
         setId(id);
         setItemText(text);

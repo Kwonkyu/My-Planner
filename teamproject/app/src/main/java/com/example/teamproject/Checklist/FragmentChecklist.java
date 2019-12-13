@@ -135,19 +135,24 @@ public class FragmentChecklist extends Fragment {
     private void readFromDB(){
         String query = "SELECT * FROM checklist ORDER BY expire";
         Cursor c = db.rawQuery(query, null);
+        int idColumnIndex = c.getColumnIndex("_id");
+        int contentColumnIndex = c.getColumnIndex("content");
+        int expireColumnIndex = c.getColumnIndex("expire");
+        int placeColumnIndex = c.getColumnIndex("place");
+        int doneColumnIndex = c.getColumnIndex("done");
+
         while(c.moveToNext()){
-            int id = c.getInt(c.getColumnIndex("_id"));
-            String content = c.getString(c.getColumnIndex("content"));
-            int expirationDate = c.getInt(c.getColumnIndex("expire"));
-            String place = c.getString(c.getColumnIndex("place"));
-            boolean done = (c.getInt(c.getColumnIndex("done")) == 1);
+            int id = c.getInt(idColumnIndex);
+            String content = c.getString(contentColumnIndex);
+            int expirationDate = c.getInt(expireColumnIndex);
+            String place = c.getString(placeColumnIndex);
+            boolean done = (c.getInt(doneColumnIndex) == 1);
 
             int year = expirationDate / 10000;
             int month = (expirationDate / 100) % 100;
             int day = expirationDate % 100;
 
             String expire = String.format(Locale.KOREAN, "%d/%d/%d", year, month, day);
-            Log.d("READ: ", content+expire+place);
             insertToCategory(id, content, expire, place, done);
         }
         c.close();
@@ -164,22 +169,18 @@ public class FragmentChecklist extends Fragment {
             // Checklist item is instantiated as CheckListItem class.
             case BEFORE:
                 previous.add(new CheckListItem(id, content, expirationDate, location, done));
-                Log.d("InsertToCategory:Before", content+expirationDate+location);
                 break;
 
             case TODAY:
                 today.add(new CheckListItem(id, content, expirationDate, location, done));
-                Log.d("InsertToCategory:TODAY", content+expirationDate+location);
                 break;
 
             case WEEK:
                 week.add(new CheckListItem(id, content, expirationDate, location, done));
-                Log.d("InsertToCategory:WEEK", content+expirationDate+location);
                 break;
 
             case FAR:
                 far.add(new CheckListItem(id, content, expirationDate, location, done));
-                Log.d("InsertToCategory:FAR", content+expirationDate+location);
                 break;
 
             default:

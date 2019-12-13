@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentChecklist fragmentChecklist = new FragmentChecklist();
     private FragmentSetting fragmentSetting = new FragmentSetting();
     private BottomNavigationView bottomNavigationItemView;
+//    private FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
         transaction.replace(R.id.frameLayout, fragmentTimetable).commitAllowingStateLoss();
 
         bottomNavigationItemView = findViewById(R.id.navigationView);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
+//        transaction = fragmentManager.beginTransaction();
     }
 
     @Override
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+        Fragment old = fragmentTimetable;
+
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
