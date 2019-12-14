@@ -112,8 +112,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         int request = requestCode & 0xffff;
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
-        fragment.onActivityResult(request, resultCode, data);
+        if(request == 1 || request == 2) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+            fragment.onActivityResult(request, resultCode, data);
+        }
+        else if(request == 1000) {
+            fragmentChecklist.onActivityResult(request, resultCode, data);
+        }
+
+
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
