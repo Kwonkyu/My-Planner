@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".TeamProjectApplication"
-        android:theme="@style/AppTheme">
+        android:theme="@style/noActionTheme">
         <activity android:name=".Checklist.CheckListItemAdd"></activity>
         <activity
             android:theme="@style/noActionTheme"

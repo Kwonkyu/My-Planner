@@ -7,5 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="noActionTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="noActionTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="colorAccent">@color/design_default_color_primary</item>
+
+        <!-- Toolbar Title Color -->
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <!-- Toolbar Up Button Color -->
+        <item name="android:textColorSecondary">@android:color/black</item>
+
+    </style>
+
 </resources>

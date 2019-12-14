@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/checklist_menu_add"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/cross"
         android:title="@string/checklist_menu_add"
         app:showAsAction="ifRoom" />
 </menu>

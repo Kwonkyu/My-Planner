@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_calendar_button"
-        android:title="완료"
+        android:title="add"
+        android:icon="@drawable/done"
         app:showAsAction="always"/>
 </menu>

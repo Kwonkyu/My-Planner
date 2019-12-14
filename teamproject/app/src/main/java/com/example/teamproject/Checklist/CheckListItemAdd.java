@@ -11,12 +11,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.example.teamproject.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.teamproject.R;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -57,6 +58,11 @@ public class CheckListItemAdd extends AppCompatActivity {
         place = findViewById(R.id.checklist_edit_add_place);
         Button dateButton = findViewById(R.id.checklist_button_datepicker);
         // Link view to variable
+
+        // 툴바 생성
+        Toolbar tb = (Toolbar) findViewById(R.id.add_checklist_toolbar);
+        setSupportActionBar(tb) ;
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);

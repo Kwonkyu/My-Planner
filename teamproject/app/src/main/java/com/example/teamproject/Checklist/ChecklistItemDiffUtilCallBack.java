@@ -1,12 +1,11 @@
 package com.example.teamproject.Checklist;
 
-import com.example.teamproject.Model.CheckListItem;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
+
+import com.example.teamproject.Model.CheckListItem;
+
+import java.util.ArrayList;
 
 public class ChecklistItemDiffUtilCallBack extends DiffUtil.Callback {
 

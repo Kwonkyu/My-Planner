@@ -2,11 +2,18 @@ package com.example.teamproject.Views;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.RadioButton;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamproject.R;
@@ -14,15 +21,13 @@ import com.example.teamproject.R;
 import java.util.ArrayList;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
-
+    public int selectedItem = 0;
     private ArrayList<String> itemList;
     private Context context;
-    private View.OnClickListener onClickItem;
 
-    public ColorAdapter(Context context, ArrayList<String> itemList, View.OnClickListener onClickItem) {
+    public ColorAdapter(Context context, ArrayList<String> itemList) {
         this.context = context;
         this.itemList = itemList;
-        this.onClickItem = onClickItem;
     }
 
 
@@ -38,11 +43,22 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.radioButton.setChecked(position == selectedItem);
         String item = itemList.get(position);
+        StateListDrawable drawable = new StateListDrawable();
 
-        holder.textview.setBackgroundColor(Color.parseColor(item));
-        holder.textview.setTag(item);
-        holder.textview.setOnClickListener(onClickItem);
+        GradientDrawable circle = (GradientDrawable) ContextCompat.getDrawable(context, R.drawable.circle);
+        BitmapDrawable check = (BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.check);
+        circle.setColor(Color.parseColor(item));
+        circle.setStroke((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, context.getResources().getDisplayMetrics()), Color.parseColor(item));
+        Drawable[] layer = {circle, check};
+        LayerDrawable checkedDrawable = new LayerDrawable(layer);
+        checkedDrawable.setLayerInset(1,10,10,10,10);
+        drawable.addState(new int[] { -android.R.attr.state_checked}, circle);
+        drawable.addState(new int[] { android.R.attr.state_checked }, checkedDrawable);
+        holder.radioButton.setBackground(drawable);
+        holder.radioButton.setTag(item);
+
     }
 
     @Override
@@ -53,11 +69,20 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textview;
+        public RadioButton radioButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textview = itemView.findViewById(R.id.item_textview);
+            radioButton = itemView.findViewById(R.id.item_radio);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedItem = getAdapterPosition();
+                    notifyDataSetChanged();
+                }
+            });
+
         }
     }
 }

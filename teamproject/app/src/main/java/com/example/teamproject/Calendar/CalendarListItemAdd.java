@@ -19,20 +19,12 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.teamproject.DBHelper;
 import com.example.teamproject.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class CalendarListItemAdd extends AppCompatActivity {

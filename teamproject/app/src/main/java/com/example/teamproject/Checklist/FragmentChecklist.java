@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,16 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.teamproject.DBHelper;
-import com.example.teamproject.Model.CheckListItem;
-import com.example.teamproject.R;
-import com.example.teamproject.Views.CheckListAdapter;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.teamproject.DBHelper;
+import com.example.teamproject.Model.CheckListItem;
+import com.example.teamproject.R;
+import com.example.teamproject.Views.CheckListAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -81,20 +80,20 @@ public class FragmentChecklist extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.checklist_menu, menu);
+        //inflater.inflate(R.menu.checklist_menu, menu);
         // apply checklist menu
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        /*switch(item.getItemId()){
             case R.id.checklist_menu_add: // call checklist item add activity
                 Intent intent = new Intent(getActivity(), CheckListItemAdd.class);
                 startActivityForResult(intent, CHECKLIST_ADD_ITEM_REQUEST);
                 break;
             default:
                 break;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -245,6 +244,15 @@ public class FragmentChecklist extends Fragment {
         checklist_week.setAdapter(week_adapter);
         checklist_far.setAdapter(far_adapter);
         // apply Adapter to each view.
+
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CheckListItemAdd.class);
+                startActivityForResult(intent, CHECKLIST_ADD_ITEM_REQUEST);
+            }
+        });
 
         return rootView;
     }

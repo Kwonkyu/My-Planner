@@ -1,18 +1,13 @@
 package com.example.teamproject;
 
-import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-
-import java.util.Calendar;
 
 public class FragmentSetting extends Fragment {
 

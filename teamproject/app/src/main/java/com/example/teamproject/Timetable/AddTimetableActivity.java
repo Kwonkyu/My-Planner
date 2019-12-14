@@ -5,12 +5,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,10 +28,12 @@ import com.example.teamproject.Model.DAY;
 import com.example.teamproject.Model.Lecture;
 import com.example.teamproject.R;
 import com.example.teamproject.Views.ColorAdapter;
+import com.example.teamproject.Views.ColorItemDecoration;
 import com.example.teamproject.Views.ListViewBtnAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -36,6 +41,7 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 public class AddTimetableActivity extends AppCompatActivity implements ListViewBtnAdapter.ListBtnClickListener {
     TextView tv1, tv2, tv3;
@@ -44,12 +50,13 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
     CheckBox[] checkBoxes;
     ArrayList<String> colorItems;
     ArrayList<Lecture> lecList;
-    String selectColor, mode;
+    String selectColor, mode, currentTimetable;
     ListView list;
     ListViewBtnAdapter adapter;
     ArrayList<String> items;
     TextView startTimeTextView, endTimeTextView;
     String[] colors = {"#f78c6c","#feb44d", "#fcf087", "#e6e966", "#9ff4b9", "#42dc28", "#7acee1", "#d2a2e4"};
+    Long creationTime;
 
 
     @Override
@@ -58,19 +65,24 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         setContentView(R.layout.activity_add_timetable);
 
         mode = getIntent().getStringExtra("mode");
-
+        currentTimetable = getIntent().getStringExtra("filename");
         init();
 
         //파일을 미리 불러옴
         lecList = new ArrayList<>();
         try {
+            File file = new File(getFilesDir().getAbsolutePath(), "timetable_" + currentTimetable + ".txt");
+            creationTime = file.lastModified();
+
             //파일을 읽어옴
-            FileInputStream in = openFileInput("timetable.txt");
+            FileInputStream in = openFileInput("timetable_" + currentTimetable + ".txt");
             BufferedInputStream bin = new BufferedInputStream(in);
             ObjectInputStream oin = new ObjectInputStream(bin);
             lecList = (ArrayList<Lecture>) oin.readObject();
+            Log.d("ttttt",currentTimetable);
             oin.close();
         } catch(Exception e) {
+            creationTime = (long)0;
         }
 
         // 수정 모드
@@ -94,27 +106,44 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         setSupportActionBar(tb) ;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if(mode.equals("REVISE")) {
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText("시간표 수정");
+        }
         //텍스트 뷰 설정
         tv1 = findViewById(R.id.lecture_name);
         tv2 = findViewById(R.id.lecture_room);
         tv3 = findViewById(R.id.lecturer);
 
+        InputFilter inputFilter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                Pattern ps = Pattern.compile("^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\s\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+                if(ps.matcher(source).matches()){
+                    return source;
+                }
+                return "";
+            }
+        };
+        InputFilter[] filters = new InputFilter[] {inputFilter};
+
+        tv1.setFilters(filters);
+        tv2.setFilters(filters);
+        tv3.setFilters(filters);
+
         //컬러 리사이클러 뷰 설정
         recycle = findViewById(R.id.color_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recycle.setLayoutManager(layoutManager);
+        recycle.addItemDecoration(new ColorItemDecoration(50));
         colorItems = new ArrayList<>();
-        for(String s : colors) colorItems.add(s);
+        for(String s : colors) {
+            colorItems.add(s);
+        }
         selectColor = "#f78c6c";
         //임시, 바꿔야함
-        adapter2 = new ColorAdapter(this, colorItems, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectColor = (String)v.getTag();
-                Toast.makeText(getApplicationContext(),(String)v.getTag(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter2 = new ColorAdapter(this, colorItems);
+
         recycle.setAdapter(adapter2);
 
         //체크 박스 설정
@@ -128,6 +157,16 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         checkBoxes[6] = findViewById(R.id.check_sun);
 
 
+
+        for(int i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) buttonView.setTextColor(Color.rgb(255,255,255));
+                    else buttonView.setTextColor(Color.rgb(0,0,0));
+                }
+            });
+        }
         //리스트 뷰 설정
         list = findViewById(R.id.time_list);
         items = new ArrayList<>();
@@ -225,6 +264,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                 }
                 //추가 or 수정할 정보를 가지는 lecture 객체 생성
                 Lecture lec = new Lecture();
+                selectColor = colors[adapter2.selectedItem];
                 lec.setColor(selectColor);
                 lec.setId(mode.equals("ADD") ? lecList.size() : getIntent().getIntExtra("id",0));
                 lec.setName(tv1.getText().toString());
@@ -248,12 +288,19 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                 }
                 //파일을 저장
                 try{
-                    FileOutputStream fout = openFileOutput("timetable.txt", Context.MODE_PRIVATE);
+                    FileOutputStream fout = openFileOutput("timetable_" + currentTimetable + ".txt", Context.MODE_PRIVATE);
                     BufferedOutputStream bout = new BufferedOutputStream(fout);
                     ObjectOutputStream oout = new ObjectOutputStream(bout);
-
                     oout.writeObject(lecList);
                     oout.close();
+
+                    File file = new File(getFilesDir().getAbsolutePath(), "timetable_" + currentTimetable + ".txt");
+                    if(creationTime == (long)0) {
+                        file.setLastModified(System.currentTimeMillis());
+                    }
+                    else {
+                        file.setLastModified(creationTime);
+                    }
 
                     setResult(RESULT_OK);
                 } catch(Exception e) {
@@ -277,11 +324,21 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+                if(hourOfDay < 9) {
+                    hourOfDay = 9;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 빠른 시간은 오전 9시입니다.",Toast.LENGTH_SHORT).show();
+                }
+                else if(hourOfDay > 18 || (hourOfDay == 18 && minute > 0)) {
+                    hourOfDay = 18;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 늦은 시간은 오후 6시입니다.",Toast.LENGTH_SHORT).show();
+                }
                 startTimeTextView.setText((hourOfDay < 10 ?  "0" + hourOfDay : hourOfDay) + ":"  + (minute < 10 ? "0" + minute : minute));
             }
-        }, 12, 0, false);
+        }, 9, 0, false);
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         timePickerDialog.show();
     }
 
@@ -289,9 +346,19 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay < 9) {
+                    hourOfDay = 9;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 빠른 시간은 오전 9시입니다.",Toast.LENGTH_SHORT).show();
+                }
+                else if(hourOfDay > 18 || (hourOfDay == 18 && minute > 0)) {
+                    hourOfDay = 18;
+                    minute = 0;
+                    Toast.makeText(getApplicationContext(),"선택할 수 있는 가장 늦은 시간은 오후 6시입니다.",Toast.LENGTH_SHORT).show();
+                }
                 endTimeTextView.setText((hourOfDay < 10 ?  "0" + hourOfDay : hourOfDay) + ":"  + (minute < 10 ? "0" + minute : minute));
             }
-        }, 13, 0, false);
+        }, 18, 0, false);
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         timePickerDialog.show();
     }

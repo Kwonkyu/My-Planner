@@ -26,16 +26,17 @@ public class TimetableDialog extends DialogFragment {
     private Fragment fragment;
     String[] day = {"월", "화", "수", "목", "금", "토", "일"};
     int value;
+    String currentTimetable;
     public TimetableDialog() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_timetable, container, false);
 
         Bundle args = getArguments();
         value = args.getInt("key");
-
+        currentTimetable = args.getString("filename");
         fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout);
 
         // 커스텀 다이얼로그의 각 위젯들을 정의한다.
@@ -50,7 +51,7 @@ public class TimetableDialog extends DialogFragment {
         ArrayList<Lecture> lecList = new ArrayList<>();
         try {
 
-            FileInputStream fin = getActivity().openFileInput("timetable.txt");
+            FileInputStream fin = getActivity().openFileInput("timetable_" + currentTimetable + ".txt");
             BufferedInputStream bin = new BufferedInputStream(fin);
             ObjectInputStream oin = new ObjectInputStream(bin);
             lecList = (ArrayList<Lecture>) oin.readObject();
@@ -69,7 +70,7 @@ public class TimetableDialog extends DialogFragment {
             item.add(t.getInfo("string"));
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.listview_dialog_item, item);
         list.setAdapter(adapter);
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class TimetableDialog extends DialogFragment {
             public void onClick(View v) {
                 try {
                     ((FragmentTimetable)getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout)).deleteLecture(value);
-                    ((FragmentTimetable)getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout)).createTimeTable(9,18);
+                    ((FragmentTimetable)getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout)).createTimeTable(9,18, currentTimetable);
                 } catch (Exception e) {
                     Log.d("tttt", e.getMessage());
                 }
@@ -91,6 +92,7 @@ public class TimetableDialog extends DialogFragment {
                 Intent intent = new Intent(getActivity(), AddTimetableActivity.class);
                 intent.putExtra("mode", "REVISE");
                 intent.putExtra("id", value);
+                intent.putExtra("filename",currentTimetable);
                 startActivityForResult(intent, 2);
                 dismiss();
             }

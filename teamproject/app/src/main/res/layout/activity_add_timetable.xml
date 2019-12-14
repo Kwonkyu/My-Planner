@@ -1,64 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_timetable_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:id="@+id/add_timetable_toolbar">
+        android:background="?attr/colorPrimary">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toolbar Title"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title"
-            android:textSize="20sp"
-            />
+            android:text="시간표 추가"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="강의 정보"
+        android:textColor="#616161"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/lecture_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:hint="수업명(필수)"
-        android:inputType="textPersonName" />
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/lecture_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
-        android:hint="강의실(선택)"
-        android:inputType="textPersonName" />
+        android:hint="수업명(필수)"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/lecturer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
-        android:hint="교수명(선택)"
-        android:inputType="textPersonName" />
+        android:hint="수업명(필수)"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:textSize="16sp" />
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="색상" />
+        android:layout_margin="10dp"
+        android:text="색상"
+        android:textColor="#616161"
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/color_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="horizontal" />
+        android:layout_margin="10dp"
+        android:scrollbars="none"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="요일 및 시간" />
+        android:layout_margin="10dp"
+        android:text="요일 및 시간"
+        android:textColor="#616161"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,72 +95,159 @@
             android:id="@+id/check_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="월"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="화"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_wed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="수"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_thu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="목"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_fri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="금"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_sat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="토"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
         <CheckBox
             android:id="@+id/check_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_selector"
+            android:button="@null"
+            android:text="일"
+            android:textAlignment="center"
+            android:textSize="17sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/beginTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00" />
-
-    <TextView
-        android:id="@+id/endTime"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="00:00" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/list_add_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <TextView
+            android:id="@+id/beginTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="3"
+            android:gravity="right|center_vertical"
+            android:paddingLeft="50dp"
+            android:text="00:00"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="-"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:paddingRight="50dp"
+            android:text="00:00"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/list_add_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/cross"
+            android:backgroundTint="#000000" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="시간 목록" />
+        android:layout_margin="10dp"
+        android:text="시간 목록"
+        android:textColor="#616161"
+        android:textSize="16sp" />
 
     <ListView
         android:id="@+id/time_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

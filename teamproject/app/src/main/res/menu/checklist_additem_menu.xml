@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/checklist_menu_save"
-        android:icon="@drawable/checkedicon"
+        android:icon="@drawable/done"
         android:title="@string/global_save"
         app:showAsAction="ifRoom|withText" />
 </menu>

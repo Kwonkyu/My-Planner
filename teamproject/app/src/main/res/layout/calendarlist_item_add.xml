@@ -14,7 +14,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toolbar Title"
+            android:text="일정 추가"
+            android:textColor="@android:color/black"
             android:layout_gravity="center"
             android:id="@+id/add_toolbar_title"
             android:textSize="20sp"
