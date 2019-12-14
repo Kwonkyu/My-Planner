@@ -36,7 +36,7 @@ import java.util.Locale;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class FragmentChecklist extends Fragment {
-    static final int CHECKLIST_ADD_ITEM_REQUEST = 1000;
+    public static final int CHECKLIST_ADD_ITEM_REQUEST = 1000;
     static final int CHECKLIST_ADD_ITEM_RESULT = 1001;
     static final String CHECKLIST_ADD_ITEM_OK = "[OK]";
     static final String CHECKLIST_ADD_ITEM_DATE = "[DATE]";

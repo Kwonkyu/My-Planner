@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         int request = requestCode & 0xffff;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
         fragment.onActivityResult(request, resultCode, data);
+        fragmentChecklist.onActivityResult(FragmentChecklist.CHECKLIST_ADD_ITEM_REQUEST, resultCode, data);
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
