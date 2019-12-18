@@ -87,7 +87,8 @@
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:id="@+id/start_day_btn"
-            android:onClick="OnClickHandler2"/>
+            android:onClick="OnClickHandler2"
+            android:background="@drawable/button_roundcorner_2"/>
 
     <Button
         android:layout_width="170dp"
@@ -98,7 +99,8 @@
         android:layout_marginTop="15dp"
         android:textSize="18dp"
         android:id="@+id/start_time_btn"
-        android:onClick="OnClickHandler"/>
+        android:onClick="OnClickHandler"
+        android:background="@drawable/button_roundcorner_2"/>
     </LinearLayout>
 
     <LinearLayout
@@ -116,7 +118,8 @@
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:id="@+id/end_day_btn"
-            android:onClick="OnClickHandler2"/>
+            android:onClick="OnClickHandler2"
+            android:background="@drawable/button_roundcorner_2"/>
 
     <Button
         android:layout_width="170dp"
@@ -127,7 +130,8 @@
         android:layout_marginTop="15dp"
         android:textSize="18dp"
         android:id="@+id/end_tiem_btn"
-        android:onClick="OnClickHandler2"/>
+        android:onClick="OnClickHandler2"
+        android:background="@drawable/button_roundcorner_2"/>
     </LinearLayout>
 
 
