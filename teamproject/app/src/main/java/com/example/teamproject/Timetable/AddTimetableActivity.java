@@ -198,6 +198,8 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
             public void onClick(View v) {
                 SimpleDateFormat format =  new SimpleDateFormat("HH:mm");
                 Calendar startT, endT, addStartT, addEndT;
+                startT = Calendar.getInstance();
+                endT = Calendar.getInstance();
                 addStartT = Calendar.getInstance();
                 addEndT = Calendar.getInstance();
 
@@ -228,11 +230,39 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                                     Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
                                     return;
                                 }
+                                else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == addEndT.getTimeInMillis()) {
+                                    Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
+                                    return;
+                                }
 
                             }
                         }
                     }
                 }
+
+                for(String t : items) {
+                    for(String s : tempItems) {
+                        if(t.substring(0,1).equals(s.substring(0,1))) {
+                            setTime(startT, t.substring(2,7));
+                            setTime(endT,t.substring(8));
+                            setTime(addStartT, s.substring(2,7));
+                            setTime(addEndT,s.substring(8));
+                            Log.d("testt",startT.getTime().toString());
+                            Log.d("tests",addStartT.getTime().toString());
+                            if((addStartT.getTimeInMillis() < startT.getTimeInMillis() && addEndT.getTimeInMillis() > startT.getTimeInMillis()) ||
+                                    (addStartT.getTimeInMillis() > startT.getTimeInMillis() && addStartT.getTimeInMillis() < endT.getTimeInMillis()) ||
+                                    (addEndT.getTimeInMillis() > startT.getTimeInMillis() && addEndT.getTimeInMillis() < endT.getTimeInMillis())) {
+                                Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == addEndT.getTimeInMillis()) {
+                                Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 items.addAll(tempItems);
                 adapter.notifyDataSetChanged();
             }
