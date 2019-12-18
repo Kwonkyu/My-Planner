@@ -144,27 +144,24 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.Chec
         private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
+                String mContent = dataSet.get(getAdapterPosition()).getItemText();
+                String place = dataSet.get(getAdapterPosition()).getItemPlace();
+                int id = dataSet.get(getAdapterPosition()).getId();
+
                 switch (item.getItemId()) {
                     case 1001:  // 수정 항목을 선택시
-                        String mContent = dataSet.get(getAdapterPosition()).getItemText();
-                        String place = dataSet.get(getAdapterPosition()).getItemPlace();
                         mCallback.onModifySelected(mContent, place);
-                        FragmentChecklist.db.execSQL("DELETE FROM checklist WHERE content = '" + mContent + "';");
-                        dataSet.remove(getAdapterPosition());
-                        notifyItemRemoved(getAdapterPosition());
-                        notifyItemRangeChanged(getAdapterPosition(), dataSet.size());
-
                         break;
                     case 1002: // 삭제 항목을 선택시
-                        String dContent = dataSet.get(getAdapterPosition()).getItemText();
-                        FragmentChecklist.db.execSQL("DELETE FROM checklist WHERE content = '" + dContent + "';");
-                        dataSet.remove(getAdapterPosition());
-                        notifyItemRemoved(getAdapterPosition());
-                        notifyItemRangeChanged(getAdapterPosition(), dataSet.size());
-
                         break;
-
                 }
+
+                FragmentChecklist.db.execSQL("DELETE FROM checklist WHERE _id = '" + id + "';");
+                dataSet.remove(getAdapterPosition());
+                notifyItemRemoved(getAdapterPosition());
+                notifyItemRangeChanged(getAdapterPosition(), dataSet.size());
+
                 return true;
             }
 
