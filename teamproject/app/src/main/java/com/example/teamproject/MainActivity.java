@@ -64,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
         bottomNavigationItemView = findViewById(R.id.navigationView);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
+        int command = getIntent().getIntExtra("COMMAND", -1);
+        if(command > 0){
+            fragmentManager.beginTransaction().hide(fragmentTimetable).commit();
+            fragmentManager.beginTransaction().hide(fragmentSetting).commit();
+            fragmentManager.beginTransaction().show(fragmentChecklist).commit();
+            fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
+            bottomNavigationItemView.getMenu().getItem(2).setChecked(true);
+        }
     }
 
     public void setActionBar(String title) {

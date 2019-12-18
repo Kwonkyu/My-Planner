@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.NotificationChannel;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.teamproject.DBHelper;
+import com.example.teamproject.MainActivity;
 import com.example.teamproject.Model.CheckListItem;
 import com.example.teamproject.R;
 import com.example.teamproject.Views.CheckListAdapter;
@@ -47,6 +49,7 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
     static final int CHECKLIST_ADD_ITEM_REQUEST = 1000;
     static final int CHECKLIST_ADD_ITEM_RESULT = 1001;
     static final int NOTIFICATION_TODAY = 2000;
+    public static final int COMMAND_SHOW_CHECKLIST = 3000;
     static final String CHECKLIST_ADD_ITEM_OK = "[OK]";
     static final String CHECKLIST_ADD_ITEM_DATE = "[DATE]";
     static final String CHECKLIST_ADD_ITEM_PLACE = "[PLACE]";
@@ -142,8 +145,12 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
                         contentText = contentText + " / " + i.getItemPlace() + "에서";
                     }
 
+                    Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
+                    notificationIntent.putExtra("COMMAND", COMMAND_SHOW_CHECKLIST);
+                    PendingIntent pIntent = PendingIntent.getActivity(getContext(), COMMAND_SHOW_CHECKLIST, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
                     Notification itemNotification = new NotificationCompat.Builder(getContext(), NOTIFICATION_CHANNEL)
                             .setSmallIcon(R.drawable.checkedicon)
+                            .setContentIntent(pIntent)
                             .setContentTitle(i.getItemText())
                             .setContentText(contentText)
                             .setGroup(NOTIFICATION_GROUP)
