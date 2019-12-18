@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,6 +99,12 @@ public class CheckListItemAdd extends AppCompatActivity {
             case R.id.checklist_menu_save:
                 String text = input.getText().toString();
                 String placeText = place.getText().toString();
+
+                if(text.equals("")) {
+                    Toast.makeText(getApplicationContext(), "할 일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
                 Intent intent = new Intent(this, FragmentChecklist.class);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_OK, text);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_DATE, dateString);

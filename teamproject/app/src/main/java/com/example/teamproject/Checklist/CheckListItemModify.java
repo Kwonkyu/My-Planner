@@ -4,12 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,7 @@ public class CheckListItemModify extends AppCompatActivity {
     private EditText input;
     private EditText place;
     private static String dateString;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
         Button dateButton;
@@ -106,6 +109,12 @@ public class CheckListItemModify extends AppCompatActivity {
             case R.id.checklist_menu_save:
                 String text = input.getText().toString();
                 String placeText = place.getText().toString();
+
+                if(text.equals("")) {
+                    Toast.makeText(getApplicationContext(), "할 일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
                 Intent intent = new Intent(this, FragmentChecklist.class);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_OK, text);
                 intent.putExtra(FragmentChecklist.CHECKLIST_ADD_ITEM_DATE, dateString);
@@ -116,4 +125,23 @@ public class CheckListItemModify extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "수정을 취소해도 항목은 복원되지 않습니다!", Toast.LENGTH_LONG).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    } // https://stackoverflow.com/questions/8430805/clicking-the-back-button-twice-to-exit-an-activity
 }
