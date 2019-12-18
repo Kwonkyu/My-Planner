@@ -108,7 +108,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(mode.equals("REVISE")) {
             TextView toolbarTitle = findViewById(R.id.toolbar_title);
-            toolbarTitle.setText("시간표 수정");
+            toolbarTitle.setText("강의 수정");
         }
         //텍스트 뷰 설정
         tv1 = findViewById(R.id.lecture_name);
