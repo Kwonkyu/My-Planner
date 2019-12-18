@@ -6,8 +6,12 @@
     <string name="checklist_text_week">이번주</string>
     <string name="checklist_text_far">일주일 이상</string>
     <string name="checklist_menu_add">할일 추가</string>
+    <string name="checklist_menu_modify">할일 수정</string>
+    <string name="checklist_header_add">일정 추가</string>
+    <string name="checklist_header_modify">일정 수정</string>
     <string name="checklist_text_item_add">할일 추가</string>
     <string name="checklist_text_item_default">할 일을 입력해주세요</string>
+    <string name="checklist_text_item_place">장소를 입력해주세요</string>
     <string name="checklist_button_datepicker">기한 선택</string>
     <string name="checklist_text_item_add_form">할일</string>
     <string name="checklist_text_item_add_date_form">완료 예정일</string>
@@ -19,4 +23,5 @@
 
     <string name="date_default">1970/1/1</string>
     <string name="desc_checkbox">일정 완료/미완료 여부</string>
+    <string name="desc_arrow">Folded/Unfolded 여부</string>
 </resources>

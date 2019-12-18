@@ -15,6 +15,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -217,7 +220,7 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_checklist, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_checklist, container, false);
         previous = new ArrayList<>();
         today = new ArrayList<>();
         week = new ArrayList<>();
@@ -269,7 +272,50 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
             }
         });
 
+        LinearLayout categoryPrevious = rootView.findViewById(R.id.checklist_category_previous);
+        categoryPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCategoryVisibility(R.id.image_category_previous, rootView, checklist_previous);
+            }
+        });
+
+        LinearLayout categoryToday = rootView.findViewById(R.id.checklist_category_today);
+        categoryToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCategoryVisibility(R.id.image_category_today, rootView, checklist_today);
+            }
+        });
+
+        LinearLayout categoryWeek = rootView.findViewById(R.id.checklist_category_week);
+        categoryWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCategoryVisibility(R.id.image_category_week, rootView, checklist_week);
+            }
+        });
+
+        LinearLayout categoryFar = rootView.findViewById(R.id.checklist_category_far);
+        categoryFar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCategoryVisibility(R.id.image_category_far, rootView, checklist_far);
+            }
+        });
+
         return rootView;
+    }
+
+    private void setCategoryVisibility(int image, View view, RecyclerView recyclerView){
+        ImageView arrow = view.findViewById(image);
+        if(recyclerView.getVisibility() == View.GONE){
+            recyclerView.setVisibility(View.VISIBLE);
+            arrow.setImageResource(R.drawable.arrow_up);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            arrow.setImageResource(R.drawable.arrow_down);
+        }
     }
 
     @TargetApi(26)

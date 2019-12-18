@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="일정 추가"
+                android:text="@string/checklist_header_add"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
@@ -139,9 +139,10 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
-            android:hint="@string/checklist_text_item_default"
+            android:hint="@string/checklist_text_item_place"
+            android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:inputType="textLongMessage|textMultiLine|textPersonName" />
+            android:inputType="textLongMessage|textPersonName" />
 
     </RelativeLayout>
 </ScrollView>
