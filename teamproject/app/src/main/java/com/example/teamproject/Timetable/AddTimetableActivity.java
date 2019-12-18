@@ -55,7 +55,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
     ListViewBtnAdapter adapter;
     ArrayList<String> items;
     TextView startTimeTextView, endTimeTextView;
-    String[] colors = {"#f78c6c","#feb44d", "#fcf087", "#e6e966", "#9ff4b9", "#42dc28", "#7acee1", "#d2a2e4"};
+    String[] colors = {"#f78c6c","#feb44d", "#fbea55", "#e2e650", "#9ff4b9", "#42dc28", "#7acee1", "#d2a2e4"};
     Long creationTime;
 
 
