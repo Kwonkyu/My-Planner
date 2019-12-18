@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="checklistColorPrimary">#8AA2FF</color>
-    <color name="checklistColorSecondary">#002AAF</color>
+    <color name="checklistColorPrimary">#8CCFFF</color>
+    <color name="checklistColorSecondary">#4D74FF</color>
     <color name="checklistTextColorPrimary">#000000</color>
     <color name="checklistTextColorSecondary">#D3D3D3</color>
 </resources>
