@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="18dp"
+    android:paddingTop="20dp"
+    android:paddingRight="18dp"
+    android:paddingBottom="20dp">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="#F1D2D2"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:shadowColor="#00FF0606"
+        android:text="My Planner"
+        android:textAllCaps="false"
+        android:textColor="#806A6A"
+        android:textColorHighlight="#00FFFFFF"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
 </LinearLayout>

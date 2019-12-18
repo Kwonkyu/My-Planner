@@ -143,5 +143,5 @@ public class CheckListItemModify extends AppCompatActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }
+    } // https://stackoverflow.com/questions/8430805/clicking-the-back-button-twice-to-exit-an-activity
 }
