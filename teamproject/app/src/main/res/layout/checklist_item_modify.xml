@@ -71,8 +71,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:hint="@string/checklist_text_item_default"
+            android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:inputType="textLongMessage|textMultiLine|textPersonName" />
+            android:inputType="textLongMessage|textPersonName|textCapSentences" />
 
 
         <View
@@ -142,7 +143,7 @@
             android:hint="@string/checklist_text_item_place"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:inputType="textLongMessage|textPersonName" />
+            android:inputType="textLongMessage|textPersonName|textCapSentences" />
 
     </RelativeLayout>
 </ScrollView>
