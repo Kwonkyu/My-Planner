@@ -17,13 +17,9 @@ public class Lecture implements Serializable {
         public Time(DAY day, String startTime, String endTime) {
             this.day = day;
             this.startTime = Calendar.getInstance();
-            this.startTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startTime.substring(0,2)));
-            this.startTime.set(Calendar.MINUTE, Integer.parseInt(startTime.substring(3,5)));
-            this.startTime.set(Calendar.SECOND, 0);
+            setStartTime(startTime);
             this.endTime = Calendar.getInstance();
-            this.endTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(endTime.substring(0,2)));
-            this.endTime.set(Calendar.MINUTE, Integer.parseInt(endTime.substring(3,5)));
-            this.endTime.set(Calendar.SECOND, 0);
+            setEndTime(endTime);
         }
 
         public void setDay(DAY day) {
@@ -37,6 +33,7 @@ public class Lecture implements Serializable {
             startTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,2)));
             startTime.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,5)));
             startTime.set(Calendar.SECOND, 0);
+            startTime.set(Calendar.MILLISECOND,0);
         }
         public Calendar getStartTime(){
             return startTime;
@@ -46,6 +43,7 @@ public class Lecture implements Serializable {
             endTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,2)));
             endTime.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,5)));
             endTime.set(Calendar.SECOND, 0);
+            endTime.set(Calendar.MILLISECOND,0);
         }
         public Calendar getEndTime(){
             return endTime;

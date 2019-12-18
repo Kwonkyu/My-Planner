@@ -31,18 +31,6 @@ public enum DAY {
             final String str = "금";
             return str;
         }
-    }, SAT{
-        @Override
-        public String getDay(){
-            final String str = "토";
-            return str;
-        }
-    }, SUN{
-        @Override
-        public String getDay(){
-            final String str = "일";
-            return str;
-        }
     };
 
     public String getDay() {

@@ -224,13 +224,17 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                                 endT = t.getEndTime();
                                 setTime(addStartT, s.substring(2,7));
                                 setTime(addEndT,s.substring(8));
-                                if((addStartT.getTimeInMillis() < startT.getTimeInMillis() && addEndT.getTimeInMillis() > startT.getTimeInMillis()) ||
+                                Log.d("testt",Long.toString(endT.getTimeInMillis()));
+                                Log.d("tests",Long.toString(addStartT.getTimeInMillis()));
+                                Log.d("tests",Boolean.toString(addStartT.getTimeInMillis() == endT.getTimeInMillis()));
+                                if(addStartT.getTimeInMillis() == endT.getTimeInMillis() || addEndT.getTimeInMillis() == startT.getTimeInMillis());
+                                else if((addStartT.getTimeInMillis() < startT.getTimeInMillis() && addEndT.getTimeInMillis() > startT.getTimeInMillis()) ||
                                         (addStartT.getTimeInMillis() > startT.getTimeInMillis() && addStartT.getTimeInMillis() < endT.getTimeInMillis()) ||
                                         (addEndT.getTimeInMillis() > startT.getTimeInMillis() && addEndT.getTimeInMillis() < endT.getTimeInMillis())) {
-                                    Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다1.",Toast.LENGTH_LONG).show();
                                     return;
                                 }
-                                else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == addEndT.getTimeInMillis()) {
+                                else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == endT.getTimeInMillis()) {
                                     Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
                                     return;
                                 }
@@ -249,13 +253,14 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                             setTime(addEndT,s.substring(8));
                             Log.d("testt",startT.getTime().toString());
                             Log.d("tests",addStartT.getTime().toString());
-                            if((addStartT.getTimeInMillis() < startT.getTimeInMillis() && addEndT.getTimeInMillis() > startT.getTimeInMillis()) ||
+                            if(addStartT.getTimeInMillis() == endT.getTimeInMillis() || addEndT.getTimeInMillis() == startT.getTimeInMillis());
+                            else if((addStartT.getTimeInMillis() < startT.getTimeInMillis() && addEndT.getTimeInMillis() > startT.getTimeInMillis()) ||
                                     (addStartT.getTimeInMillis() > startT.getTimeInMillis() && addStartT.getTimeInMillis() < endT.getTimeInMillis()) ||
                                     (addEndT.getTimeInMillis() > startT.getTimeInMillis() && addEndT.getTimeInMillis() < endT.getTimeInMillis())) {
                                 Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == addEndT.getTimeInMillis()) {
+                            else if(addStartT.getTimeInMillis() == startT.getTimeInMillis() && addEndT.getTimeInMillis() == endT.getTimeInMillis()) {
                                 Toast.makeText(getApplicationContext(),"중복된 시간을 입력하셨습니다.",Toast.LENGTH_LONG).show();
                                 return;
                             }
@@ -397,5 +402,6 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,2)));
         calendar.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,5)));
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
     }
 }
