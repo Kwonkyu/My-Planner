@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E0F2F7">
 
     <TextView
         android:id="@+id/title"
@@ -11,7 +12,7 @@
         android:gravity="center"
         android:text="일정 정보"
         android:textColor="#ffffff"
-        android:textSize="16dp" />
+        android:textSize="30dp" />
 
     <View
         android:layout_width="match_parent"
@@ -21,7 +22,10 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        >
 
         <TableRow
             android:layout_width="match_parent"
@@ -30,90 +34,107 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일정 제목 : " />
+                android:text="일정 제목 : "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_cltitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일정 내용 : " />
+                android:text="일정 내용 : "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_clwork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시작 날짜 : " />
+                android:text="시작 날짜 : "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_clstartd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종료 날짜: " />
+                android:text="종료 날짜: "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_clendd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시작 시간 : " />
+                android:text="시작 시간 : "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_clstartt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종료 시간 : " />
+                android:text="종료 시간 : "
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/dialog_clendt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"/>
+                android:text="None"
+                android:textSize="18dp"/>
         </TableRow>
     </TableLayout>
 
@@ -126,7 +147,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <Button
             android:id="@+id/lecture_modify_button"
@@ -136,8 +158,8 @@
             android:gravity="center"
             android:text="편집"
             android:textColor="#000000"
-            android:textSize="16dp"
-            android:background="#ffffff"/>
+            android:textSize="20dp"
+            android:background="#A9E2F3"/>
 
         <View
             android:layout_width="1dp"
@@ -152,8 +174,8 @@
             android:gravity="center"
             android:text="삭제"
             android:textColor="#000000"
-            android:textSize="16dp"
-            android:background="#ffffff"/>
+            android:textSize="20dp"
+            android:background="#A9E2F3"/>
     </LinearLayout>
 
     <View

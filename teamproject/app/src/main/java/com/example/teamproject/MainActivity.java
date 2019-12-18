@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTimetable fragmentTimetable = new FragmentTimetable();
     private FragmentCalender fragmentCalendar = new FragmentCalender();
     private FragmentChecklist fragmentChecklist = new FragmentChecklist();
-    private FragmentSetting fragmentSetting = new FragmentSetting();
     private BottomNavigationView bottomNavigationItemView;
 
     public Spinner spinner;
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     static final String idCalendar = "CALENDAR";
     static final String idChecklist = "CHECKLIST";
-    static final String idSetting = "SETTING";
     static final String idTimetable = "TIMETABLE";
 
     @Override
@@ -59,11 +57,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.setReorderingAllowed(true);
         transaction.add(R.id.frameLayout, fragmentCalendar, idCalendar);
         transaction.add(R.id.frameLayout, fragmentChecklist, idChecklist);
-        transaction.add(R.id.frameLayout, fragmentSetting, idSetting);
         transaction.add(R.id.frameLayout, fragmentTimetable, idTimetable);
         transaction.commit();
         fragmentManager.beginTransaction().show(fragmentTimetable).commit();
-        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
         fragmentManager.beginTransaction().hide(fragmentChecklist).commit();
         fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
         bottomNavigationItemView = findViewById(R.id.navigationView);
@@ -133,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                     target = fragmentManager.findFragmentByTag(idTimetable);
                     if(target != null) {
                         fragmentManager.beginTransaction().show(target).commit();
-                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
                         fragmentManager.beginTransaction().hide(fragmentChecklist).commit();
                         fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
                         setActionBar("시간표");
@@ -144,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                     target = fragmentManager.findFragmentByTag(idCalendar);
                     if(target != null) {
                         fragmentManager.beginTransaction().show(target).commit();
-                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
                         fragmentManager.beginTransaction().hide(fragmentTimetable).commit();
                         fragmentManager.beginTransaction().hide(fragmentChecklist).commit();
                         setActionBar("캘린더");
@@ -155,23 +149,12 @@ public class MainActivity extends AppCompatActivity {
                     target = fragmentManager.findFragmentByTag(idChecklist);
                     if(target != null) {
                         fragmentManager.beginTransaction().show(target).commit();
-                        fragmentManager.beginTransaction().hide(fragmentSetting).commit();
                         fragmentManager.beginTransaction().hide(fragmentTimetable).commit();
                         fragmentManager.beginTransaction().hide(fragmentCalendar).commit();
                         setActionBar("체크리스트");
                     }
                     break;
 
-                case R.id.SettingItem:
-                    target = fragmentManager.findFragmentByTag(idSetting);
-                    if(target != null) {
-                        fragmentManager.beginTransaction().show(target).commit();
-                        fragmentManager.beginTransaction().hide(fragmentTimetable);
-                        fragmentManager.beginTransaction().hide(fragmentChecklist);
-                        fragmentManager.beginTransaction().hide(fragmentCalendar);
-                        setActionBar("설정");
-                    }
-                    break;
             } // https://medium.com/sweet-bytes/switching-between-fragments-without-the-mindless-killing-spree-9efee5f51924
             return true;
         }
