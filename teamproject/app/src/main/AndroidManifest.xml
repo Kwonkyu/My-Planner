@@ -11,6 +11,7 @@
         android:name=".TeamProjectApplication"
         android:theme="@style/noActionTheme">
         <activity android:name=".Checklist.CheckListItemAdd"></activity>
+        <activity android:name=".Checklist.CheckListItemModify"></activity>
         <activity
             android:theme="@style/noActionTheme"
             android:name=".Calendar.CalendarListItemAdd"></activity>

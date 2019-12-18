@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/add_checklist_toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+            <TextView
+                android:id="@+id/add_toolbar_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="일정 수정"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/checklist_text_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_checklist_toolbar1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="할일 수정"
+            android:textSize="30sp" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@id/checklist_text_add"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/checklistColorPrimary" />
+
+        <TextView
+            android:id="@+id/checklist_text_add_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider1"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="false"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/checklist_text_item_add_form"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/checklist_edit_add1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checklist_text_add_todo"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/checklist_text_item_default"
+            android:importantForAutofill="no"
+            android:inputType="textLongMessage|textMultiLine|textPersonName" />
+
+
+        <View
+            android:id="@+id/divider2_1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@id/checklist_edit_add1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/checklistColorPrimary" />
+
+        <TextView
+            android:id="@+id/checklist_text_add_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider2_1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/checklist_text_item_add_date_form"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/checklist_button_datepicker1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checklist_text_add_date"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_roundcorner"
+            android:text="@string/date_default"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@id/checklist_button_datepicker1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/checklistColorPrimary" />
+
+        <TextView
+            android:id="@+id/checklist_text_add_place1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider3"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/checklist_text_item_add_place_form"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/checklist_edit_add_place1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checklist_text_add_place1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/checklist_text_item_default"
+            android:importantForAutofill="no"
+            android:inputType="textLongMessage|textMultiLine|textPersonName" />
+
+    </RelativeLayout>
+</ScrollView>

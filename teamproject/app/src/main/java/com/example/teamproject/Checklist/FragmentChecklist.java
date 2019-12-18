@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +38,7 @@ import java.util.Locale;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class FragmentChecklist extends Fragment {
+public class FragmentChecklist extends Fragment implements OnModifyClick{
     static final int CHECKLIST_ADD_ITEM_REQUEST = 1000;
     static final int CHECKLIST_ADD_ITEM_RESULT = 1001;
     static final String CHECKLIST_ADD_ITEM_OK = "[OK]";
@@ -97,6 +101,15 @@ public class FragmentChecklist extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onModifySelected(String content, String place){
+        Intent intent = new Intent(getContext(),CheckListItemModify.class);
+        intent.putExtra("content",content);
+        intent.putExtra("place",place);
+        startActivityForResult(intent,CHECKLIST_ADD_ITEM_REQUEST);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode){
@@ -107,7 +120,6 @@ public class FragmentChecklist extends Fragment {
                         String expireDate = data.getStringExtra(CHECKLIST_ADD_ITEM_DATE);
                         String placeText = data.getStringExtra(CHECKLIST_ADD_ITEM_PLACE);
                         // Get checklist item text and expiration date
-
                         insertToDB(itemText, expireDate, placeText);
                         // Insert new item to DB
                         break;
@@ -131,6 +143,9 @@ public class FragmentChecklist extends Fragment {
         db.execSQL(query, params);
     }
 
+    public void deleteToDB(String content){
+
+    }
     private void readFromDB(){
         String query = "SELECT * FROM checklist ORDER BY expire";
         Cursor c = db.rawQuery(query, null);
@@ -187,7 +202,7 @@ public class FragmentChecklist extends Fragment {
         }
     }
 
-    private void updateView(){
+    public void updateView(){
         previous_adapter.notifyDataSetChanged();
         today_adapter.notifyDataSetChanged();
         week_adapter.notifyDataSetChanged();
@@ -233,10 +248,10 @@ public class FragmentChecklist extends Fragment {
         checklist_far.setLayoutManager(far_manager);
         // apply LinearLayoutManager to each view.
 
-        previous_adapter = new CheckListAdapter(previous);
-        today_adapter = new CheckListAdapter(today);
-        week_adapter = new CheckListAdapter(week);
-        far_adapter = new CheckListAdapter(far);
+        previous_adapter = new CheckListAdapter(previous, this);
+        today_adapter = new CheckListAdapter(today, this);
+        week_adapter = new CheckListAdapter( week, this);
+        far_adapter = new CheckListAdapter( far, this);
         // construct custom Adapter
 
         checklist_previous.setAdapter(previous_adapter);
