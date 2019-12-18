@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/checklist_menu_add"
-        android:icon="@drawable/cross"
-        android:title="@string/checklist_menu_add"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/checklist_menu_notify"
+        android:title="@string/checklist_menu_notify"
+        app:showAsAction="always" />
 </menu>

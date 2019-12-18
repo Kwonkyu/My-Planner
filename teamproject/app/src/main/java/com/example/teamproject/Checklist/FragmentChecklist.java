@@ -1,14 +1,15 @@
 package com.example.teamproject.Checklist;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.NotificationChannel;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,15 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.teamproject.DBHelper;
 import com.example.teamproject.Model.CheckListItem;
@@ -44,9 +46,12 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FragmentChecklist extends Fragment implements OnModifyClick{
     static final int CHECKLIST_ADD_ITEM_REQUEST = 1000;
     static final int CHECKLIST_ADD_ITEM_RESULT = 1001;
+    static final int NOTIFICATION_TODAY = 2000;
     static final String CHECKLIST_ADD_ITEM_OK = "[OK]";
     static final String CHECKLIST_ADD_ITEM_DATE = "[DATE]";
     static final String CHECKLIST_ADD_ITEM_PLACE = "[PLACE]";
+    static final String NOTIFICATION_CHANNEL = "checklist_notification";
+    static final String NOTIFICATION_GROUP = "com.example.teamproject.Checklist";
     private enum RangeCategory {BEFORE, TODAY, WEEK, FAR}
     // Constant int and string used in Intent, File I/O, etc...
 
@@ -59,6 +64,8 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
     private ArrayList<CheckListItem> previous, today, week, far;
     // Recycler related variables and data structure for storing checklist items.
 
+    private NotificationManagerCompat notificationManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -70,6 +77,21 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
         } catch (SQLiteException e) {
             db = helper.getReadableDatabase();
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification of Checklist";
+            String description = "Notification for today's checklist";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+        // https://developer.android.com/training/notify-user/build-notification.html?hl=ko#java
+
+        notificationManager = NotificationManagerCompat.from(getContext());
     }
 
     @Override
@@ -87,20 +109,52 @@ public class FragmentChecklist extends Fragment implements OnModifyClick{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        //inflater.inflate(R.menu.checklist_menu, menu);
+        inflater.inflate(R.menu.checklist_menu, menu);
         // apply checklist menu
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*switch(item.getItemId()){
-            case R.id.checklist_menu_add: // call checklist item add activity
-                Intent intent = new Intent(getActivity(), CheckListItemAdd.class);
-                startActivityForResult(intent, CHECKLIST_ADD_ITEM_REQUEST);
+        switch(item.getItemId()){
+            case R.id.checklist_menu_notify: // make notification about items of 'today' category
+                // TODO: make notification
+                notificationManager.cancelAll();
+
+                int count = 0;
+                for(CheckListItem i: today){
+                    if(!i.getDone()) count++;
+                }
+
+                Notification summaryNotification = new NotificationCompat.Builder(getContext(),NOTIFICATION_CHANNEL)
+                        .setSmallIcon(R.drawable.checkedicon)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                        .setSummaryText(count + "개의 할일이 있습니다"))
+                        .setGroup(NOTIFICATION_GROUP)
+                        .setGroupSummary(true)
+                        .build();
+                notificationManager.notify(NOTIFICATION_TODAY, summaryNotification);
+
+                for(CheckListItem i : today){
+                    if(i.getDone()) continue;
+
+                    String contentText = i.getItemDateString() + "까지";
+                    if(!i.getItemPlace().equals("")){
+                        contentText = contentText + " / " + i.getItemPlace() + "에서";
+                    }
+
+                    Notification itemNotification = new NotificationCompat.Builder(getContext(), NOTIFICATION_CHANNEL)
+                            .setSmallIcon(R.drawable.checkedicon)
+                            .setContentTitle(i.getItemText())
+                            .setContentText(contentText)
+                            .setGroup(NOTIFICATION_GROUP)
+                            .build();
+                    notificationManager.notify(NOTIFICATION_TODAY + today.indexOf(i) + 1, itemNotification);
+                }
+
                 break;
             default:
                 break;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
