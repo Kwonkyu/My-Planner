@@ -75,7 +75,6 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         try {
             createTimeTable(9, 18, currentTimetable);
         } catch (Exception e) {
-            Log.d("test11", e.getMessage());
         }
 
         FloatingActionButton fab = v.findViewById(R.id.fab);
@@ -201,9 +200,6 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
         }
         Collections.sort(lectureList);
 
-        for(String l : lectureList) {
-            Log.d("test11", l);
-        }
         //정한 시간만큼 행 추가
         for(int i = 0; i < 2; i++) {
             tr = new TableRow(getActivity());
@@ -272,6 +268,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                                 min = (startTime.getTimeInMillis() - time.getTimeInMillis()) / 60000;
                                 weight -= min;
                                 tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()),  min));
+                                Log.d(j + " test : 사전 빈공간", Long.toString(min));
                                 ll.addView(tv);
                             }
 
@@ -293,6 +290,7 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                             }
 
                             tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()), min));
+                            Log.d(j + " test : 핵심", Long.toString(min));
                             ll.addView(tv);
 
                             if(k == lectureList.size() - 1 && weight != 0) {
@@ -300,16 +298,18 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
                                 tv.setGravity(Gravity.CENTER);
                                 tv.setTextSize(14);
                                 tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()),  weight));
+                                Log.d(j + " test : 사후 빈공간", Long.toString(weight));
                                 ll.addView(tv);
                             }
                         }
                         else {
-                            if(Integer.parseInt(lectureList.get(k).substring(0,1)) > j + 1 && weight != 0) {
+                            if(Integer.parseInt(lectureList.get(k).substring(0,1)) >= j + 1 && weight != 0) {
                                 tv = new TextView(getActivity());
                                 tv.setGravity(Gravity.CENTER);
                                 tv.setTextSize(14);
                                 tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()),  weight));
                                 weight = 0;
+                                Log.d(j + " test : 사후 빈공간", Long.toString(weight));
                                 ll.addView(tv);
                             }
                         }
@@ -333,7 +333,6 @@ public class FragmentTimetable extends Fragment implements View.OnLongClickListe
             oout.writeObject(list);
             oout.close();
         }catch (Exception e){
-            Log.d("tttt", e.getMessage());
         }
     }
 

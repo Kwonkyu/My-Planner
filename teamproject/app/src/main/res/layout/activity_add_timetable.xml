@@ -156,32 +156,6 @@
             android:textAlignment="center"
             android:textSize="17sp" />
 
-        <CheckBox
-            android:id="@+id/check_sat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/day_selector"
-            android:button="@null"
-            android:text="토"
-            android:textAlignment="center"
-            android:textSize="17sp" />
-
-        <CheckBox
-            android:id="@+id/check_sun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/day_selector"
-            android:button="@null"
-            android:text="일"
-            android:textAlignment="center"
-            android:textSize="17sp" />
-
     </LinearLayout>
 
     <LinearLayout

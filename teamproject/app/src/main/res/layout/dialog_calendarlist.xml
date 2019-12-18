@@ -7,11 +7,11 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/design_default_color_primary"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
         android:text="일정 정보"
-        android:background="@color/colorPrimary"/>
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
 
     <View
         android:layout_width="match_parent"

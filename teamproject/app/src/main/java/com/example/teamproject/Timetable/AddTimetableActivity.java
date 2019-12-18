@@ -55,7 +55,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
     ListViewBtnAdapter adapter;
     ArrayList<String> items;
     TextView startTimeTextView, endTimeTextView;
-    String[] colors = {"#f78c6c","#feb44d", "#fbea55", "#e2e650", "#9ff4b9", "#42dc28", "#7acee1", "#d2a2e4"};
+    String[] colors = {"#f78c6c","#feb44d", "#fae423", "#e2e650", "#71ef98", "#42dc28", "#7acee1", "#d2a2e4"};
     Long creationTime;
 
 
@@ -147,15 +147,12 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
         recycle.setAdapter(adapter2);
 
         //체크 박스 설정
-        checkBoxes = new CheckBox[7];
+        checkBoxes = new CheckBox[5];
         checkBoxes[0] = findViewById(R.id.check_mon);
         checkBoxes[1] = findViewById(R.id.check_tue);
         checkBoxes[2] = findViewById(R.id.check_wed);
         checkBoxes[3] = findViewById(R.id.check_thu);
         checkBoxes[4] = findViewById(R.id.check_fri);
-        checkBoxes[5] = findViewById(R.id.check_sat);
-        checkBoxes[6] = findViewById(R.id.check_sun);
-
 
 
         for(int i = 0; i < checkBoxes.length; i++) {
@@ -217,6 +214,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ListViewB
                 }
 
                 for(Lecture l : lecList) {
+                    if(mode.equals("REVISE") && l.getId() == getIntent().getIntExtra("id",0)) continue;
                     for(Lecture.Time t : l.getLectureTime()) {
                         for(String s : tempItems) {
                             if(t.getDay().getDay().equals(s.substring(0,1))) {
