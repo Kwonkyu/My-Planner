@@ -27,6 +27,11 @@
             android:theme="@style/noActionTheme"
             android:name=".Timetable.AddTimetableActivity">
         </activity>
+        <receiver android:name=".Calendar.Alarm_Receiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ALARM_SERVICE"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

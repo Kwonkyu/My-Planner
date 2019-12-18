@@ -1,7 +1,10 @@
 package com.example.teamproject.Calendar;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,10 +29,15 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.teamproject.DBHelper;
 import com.example.teamproject.R;
 
+import java.util.Calendar;
+
 
 public class CalendarListItemAdd extends AppCompatActivity {
 
-
+    AlarmManager alarm_manager;
+    Context context;
+    Intent my_intent;
+    Calendar alarm_calendar;
 
     String todotitle;
     String todowork;
@@ -56,6 +64,9 @@ public class CalendarListItemAdd extends AppCompatActivity {
     int pos;
     int mod_check;
 
+    int s_val;
+    int e_val;
+
     EditText calendarlist_title;
     EditText calendarlist_work;
 
@@ -78,6 +89,11 @@ public class CalendarListItemAdd extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.calendarlist_item_add);
         super.onCreate(savedInstanceState);
+
+        this.context = this;
+        alarm_calendar = Calendar.getInstance();
+        alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        my_intent = new Intent(this.context, Alarm_Receiver.class);
 
         Toolbar tb = (Toolbar) findViewById(R.id.add_calendar_toolbar);
         setSupportActionBar(tb);
@@ -177,12 +193,27 @@ public class CalendarListItemAdd extends AppCompatActivity {
                 return true;
             }
             case R.id.add_calendar_button: {
+
+                strat_put = String.format("%d/%02d/%02d", start_year, (start_month), start_day);
+                end_put = String.format("%d/%02d/%02d", end_year, (end_month), end_day);
+                startt_put = start_hour*100+start_minute;
+                endt_put = end_hour*100+end_minute;
+
+                s_val = date_to_value(strat_put);
+                e_val = date_to_value(end_put);
+
+/*
                 if ((end_year < start_year)
                         || (end_year >= start_year && end_month < start_month)
                         || (end_year >= start_year && end_month >= start_month && end_day < start_day)) {
                     Toast.makeText(getApplicationContext(), "종료일이 시작일보다 빠릅니다!", Toast.LENGTH_SHORT).show();
                     break;
+                }*/
+                if (s_val>e_val) {
+                    Toast.makeText(getApplicationContext(), "종료일이 시작일보다 빠릅니다!", Toast.LENGTH_SHORT).show();
+                    break;
                 }
+
 
                 if ((start_hour * 100 + start_minute) > (end_hour * 100 + end_minute)) {
                     Toast.makeText(getApplicationContext(), "종료 시간이 시작 시간보다 빠릅니다!", Toast.LENGTH_SHORT).show();
@@ -196,30 +227,16 @@ public class CalendarListItemAdd extends AppCompatActivity {
 
                 Intent intent = new Intent();
 
+
                 todotitle = calendarlist_title.getText().toString();
                 todowork = calendarlist_work.getText().toString();
 
-                strat_put = String.format("%d/%02d/%02d", start_year, (start_month), start_day);
-                end_put = String.format("%d/%02d/%02d", end_year, (end_month), end_day);
-                startt_put = start_hour*100+start_minute;
-                endt_put = end_hour*100+end_minute;
 
-                //start_c_put.set(start_year, start_month - 1, start_day, start_hour, start_minute);
-                //end_c_put.set(end_year, end_month - 1, end_day, end_hour, end_minute);
 
 
                 if(mod_check == 0) insert();
                 else if(mod_check == 1) update();
 
-                /*
-                CSchdule editCSchdule = new CSchdule();
-                editCSchdule = ScheduleSharePrefernceManager.getInstance().getSchedule()
-                for (Date date = start_c_put.getTime(); start_c_put.before(end_c_put); start_c_put.add(Calendar.DATE, 1), date = start_c_put.getTime()) {
-                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    String to = transFormat.format(date);
-                    editCSchdule.addSchedule(to, cschdule_put);
-                }
-                ScheduleSharePrefernceManager.getInstance().editSchedule(editCSchdule);*/;
                 setResult(RESULT_OK, intent);
                 finish();
                 return true;
@@ -229,36 +246,18 @@ public class CalendarListItemAdd extends AppCompatActivity {
     }
 
     public void insert() {
-        Log.d("FragmentCalendar_title", "" + todotitle);
-        Log.d("FragmentCalendar_work", "" + todowork);
-        Log.d("FragmentCalendar_startd", "" + strat_put);
-        Log.d("FragmentCalendar_endd", "" + end_put);
-        Log.d("FragmentCalendar_startt", "" + startt_put);
-        Log.d("FragmentCalendar_endt", "" + endt_put);
-        int s_val = date_to_value(strat_put);
-        int e_val = date_to_value(end_put);
+
         String sql = "insert into calendar(title, work, startday, starttime, endday, endtime) values(?, ?, ?, ?, ?, ?)";
         Object[] params = {todotitle, todowork, s_val, startt_put , e_val,endt_put };
         db.execSQL(sql, params);//이런식으로 두번쨰 파라미터로 이런식으로 객체를 전달하면 sql문의 ?를 이 params에 있는 데이터를 물음표를 대체해준다.
-        Toast.makeText(this, "asdsad.", Toast.LENGTH_SHORT).show();
     }
 
     public void update() {
-        Log.d("FragmentCalendar_title", "" + todotitle);
-        Log.d("FragmentCalendar_work", "" + todowork);
-        Log.d("FragmentCalendar_startd", "" + strat_put);
-        Log.d("FragmentCalendar_endd", "" + end_put);
-        Log.d("FragmentCalendar_startt", "" + startt_put);
-        Log.d("FragmentCalendar_endt", "" + endt_put);
-        int s_val = date_to_value(strat_put);
-        int e_val = date_to_value(end_put);
+
         String sql = "update calendar set title='"+todotitle+"', work='"+todowork+"', startday="+s_val+", " +
                 "starttime="+startt_put+", endday="+e_val+", endtime="+endt_put+" WHERE _id = "+pos+"" ;
         db.execSQL(sql);//이런식으로 두번쨰 파라미터로 이런식으로 객체를 전달하면 sql문의 ?를 이 params에 있는 데이터를 물음표를 대체해준다.
-        Toast.makeText(this, "asdsad.", Toast.LENGTH_SHORT).show();
     }
-
-
 
     public void showStartTime() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
@@ -305,9 +304,7 @@ public class CalendarListItemAdd extends AppCompatActivity {
             start_year = i;
             start_month = i1 + 1;
             start_day = i2;
-            Log.d("FragmentCalendar_sTY", "" + start_year);
-            Log.d("FragmentCalendar_sTMo", "" + start_month);
-            Log.d("FragmentCalendar_sTD", "" + start_day);
+
         }
     };
 
@@ -319,9 +316,7 @@ public class CalendarListItemAdd extends AppCompatActivity {
             end_year = i;
             end_month = i1 + 1;
             end_day = i2;
-            Log.d("FragmentCalendar_eTY", "" + end_year);
-            Log.d("FragmentCalendar_eTMo", "" + end_month);
-            Log.d("FragmentCalendar_eTD", "" + end_day);
+
         }
     };
 
@@ -330,9 +325,7 @@ public class CalendarListItemAdd extends AppCompatActivity {
         int year =  Integer.parseInt(date.substring(0,4));
         int month =  Integer.parseInt(date.substring(5,7));
         int day =  Integer.parseInt(date.substring(8,10));
-        Log.d("FragmentCalendar_year",""+year);
-        Log.d("FragmentCalendar_month",""+month);
-        Log.d("FragmentCalendar_day",""+day);
+
         values = (year*10000)+(month*100)+day;
         return values;
     }
@@ -347,10 +340,7 @@ public class CalendarListItemAdd extends AppCompatActivity {
         start_month = Integer.parseInt(month);
         start_day = Integer.parseInt(day);
 
-        Log.d("FragmentCalendar_year",""+year);
-        Log.d("FragmentCalendar_month",""+month);
-        Log.d("FragmentCalendar_day",""+day);
-        Log.d("FragmentCalendar_values",""+ year+"/"+month+"/"+day);
+
     }
 
     public void value_to_date_e(int date){
@@ -363,10 +353,6 @@ public class CalendarListItemAdd extends AppCompatActivity {
         end_month = Integer.parseInt(month);
         end_day = Integer.parseInt(day);
 
-        Log.d("FragmentCalendar_year",""+year);
-        Log.d("FragmentCalendar_month",""+month);
-        Log.d("FragmentCalendar_day",""+day);
-        Log.d("FragmentCalendar_values",""+ year+"/"+month+"/"+day);
     }
 
     public void value_to_time_s(int time){
@@ -378,9 +364,6 @@ public class CalendarListItemAdd extends AppCompatActivity {
         start_hour = Integer.parseInt(hour);
         start_minute = Integer.parseInt(minute);
 
-        Log.d("FragmentCalendar_hour",""+hour);
-        Log.d("FragmentCalendar_minute",""+minute);
-        Log.d("FragmentCalendar_values",""+ hour+"시 "+minute+"분");
     }
 
     public void value_to_time_e(int time){
@@ -392,9 +375,6 @@ public class CalendarListItemAdd extends AppCompatActivity {
         end_hour = Integer.parseInt(hour);
         end_minute = Integer.parseInt(minute);
 
-        Log.d("FragmentCalendar_hour",""+hour);
-        Log.d("FragmentCalendar_minute",""+minute);
-        Log.d("FragmentCalendar_values",""+ hour+"시 "+minute+"분");
     }
 
 

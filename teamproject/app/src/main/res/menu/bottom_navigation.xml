@@ -13,9 +13,4 @@
         android:id="@+id/ChecklistItem"
         android:icon="@drawable/checklist"
         android:title="Checklist" />
-    <item
-        android:id="@+id/SettingItem"
-        android:icon="@drawable/settings_cogwheel"
-        android:title="Setting" />
-
 </menu>

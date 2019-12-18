@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -27,11 +28,14 @@
         android:id="@+id/calendarlist_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="15dp"
         android:text="일정 제목"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/checklistTextColorPrimary"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/calendarlist_edit_title"
@@ -39,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:hint="할 일의 제목을 입력해주세요"
+        android:maxLength="15"
+        android:hint="할 일의 제목을 입력해주세요 (15자 미만)"
         android:importantForAutofill="no"
         android:inputType="textLongMessage|textMultiLine|textPersonName" />
 
@@ -47,12 +52,14 @@
         android:id="@+id/calendarlist_text_work"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="15dp"
         android:text="일정 내용"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/checklistTextColorPrimary"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/calendarlist_edit_work"
@@ -60,6 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="30dp"
         android:hint="할 일의 내용을 입력해주세요"
         android:importantForAutofill="no"
         android:inputType="textLongMessage|textMultiLine|textPersonName" />

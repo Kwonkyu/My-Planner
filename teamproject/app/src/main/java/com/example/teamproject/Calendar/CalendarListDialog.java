@@ -23,7 +23,7 @@ public class CalendarListDialog extends DialogFragment {
     private SQLiteDatabase db;
     private Cursor c;
 
-    private Fragment fragment;
+    private FragmentCalender fragment;
     String strSchedule;
     String get_values;
     int get_id;
@@ -54,8 +54,7 @@ public class CalendarListDialog extends DialogFragment {
 
         Bundle args = getArguments();
 
-        fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout);
-
+        fragment = (FragmentCalender)getActivity().getSupportFragmentManager().findFragmentByTag("CALENDAR");
 
         // 커스텀 다이얼로그의 각 위젯들을 정의한다.
 
@@ -64,23 +63,12 @@ public class CalendarListDialog extends DialogFragment {
         String get_title = get_values.substring(0,pos);
         int get_stt = Integer.parseInt(get_values.substring(pos+1, get_values.length()));
 
-        Log.d("get_id",""+get_values);
-        Log.d("get_title",""+get_title);
-        Log.d("get_stt",""+get_stt);
 
 
         c=db.rawQuery("SELECT title, work, startday, endday, starttime, endtime, _id  FROM calendar WHERE title='"+get_title+"' AND startday = "+get_stt+";", null);
         c.moveToFirst();
         get_id = c.getInt(6);
 
-//
-        Log.d("get_val",""+c.getString(0));
-        Log.d("get_val",""+c.getString(1));
-        Log.d("get_val",""+c.getInt(2));
-        Log.d("get_val",""+c.getInt(3));
-        Log.d("get_val",""+c.getInt(4));
-        Log.d("get_val",""+c.getInt(5));
-        Log.d("get_val",""+get_id);
         title = view.findViewById(R.id.dialog_cltitle);
         work = view.findViewById(R.id.dialog_clwork);
         start_day = view.findViewById(R.id.dialog_clstartd);
@@ -105,13 +93,11 @@ public class CalendarListDialog extends DialogFragment {
         Button deleteBtn = view.findViewById(R.id.lecture_delete_button);
 
 
-
-
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    ((FragmentCalender)getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout)).deleteItem(get_id);
+                    fragment.deleteItem(get_id);
                 } catch (Exception e) {
                     Log.d("tttt", e.getMessage());
                 }
@@ -123,7 +109,7 @@ public class CalendarListDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 try {
-                    ((FragmentCalender)getActivity().getSupportFragmentManager().findFragmentById(R.id.frameLayout)).modifyItem(get_id);
+                    fragment.modifyItem(get_id);
                 } catch (Exception e) {
                     Log.d("tttt", e.getMessage());
                 }
@@ -138,10 +124,6 @@ public class CalendarListDialog extends DialogFragment {
         String year =  values.substring(0,4);
         String month =  values.substring(4,6);
         String day =  values.substring(6,8);
-        Log.d("FragmentCalendar_year",""+year);
-        Log.d("FragmentCalendar_month",""+month);
-        Log.d("FragmentCalendar_day",""+day);
-        Log.d("FragmentCalendar_values",""+ year+"/"+month+"/"+day);
         return year+"/"+month+"/"+day;
     }
 
@@ -150,9 +132,6 @@ public class CalendarListDialog extends DialogFragment {
         if(values.length()<4) values = "0"+values;
         String hour =  values.substring(0,2);
         String minute =  values.substring(2,4);
-        Log.d("FragmentCalendar_year",""+hour);
-        Log.d("FragmentCalendar_month",""+minute);
-        Log.d("FragmentCalendar_values",""+ hour+"시 "+minute+"분");
         return hour+":"+minute;
     }
 }
