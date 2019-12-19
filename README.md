@@ -14,10 +14,10 @@
 
 ## 실행화면
 1. 스플래쉬
-![스플래쉬](splash.png){: width=400px}
+![스플래쉬](splash.png | width=400px)
 2. 시간표
-![시간표](timetable.png){: width=400px}
+![시간표](timetable.png | width=400px)
 3. 캘린더
-![캘린더](calendar.png){: width=400px}
+![캘린더](calendar.png | width=400px)
 4. 체크리스트
-![체크리스트](checklist.png){: width=400px}
+![체크리스트](checklist.png | width=400px)
