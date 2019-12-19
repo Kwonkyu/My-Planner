@@ -1,70 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tt_text1"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="오늘"
-        android:textSize="30dp" />
-    <View
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/checklist_category_previous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/checklistColorPrimary"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/checklist_text_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:text="@string/checklist_text_previous"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/image_category_previous"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc_arrow"
+                app:srcCompat="@drawable/arrow_up" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checklist_recycler_previous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/checklistColorSecondary" />
+
+        <LinearLayout
+            android:id="@+id/checklist_category_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/checklistColorPrimary"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/checklist_text_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:text="@string/checklist_text_today"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/image_category_today"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc_arrow"
+                app:srcCompat="@drawable/arrow_up" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checklist_recycler_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/checklistColorSecondary" />
+
+        <LinearLayout
+            android:id="@+id/checklist_category_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/checklistColorPrimary"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/checklist_text_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:text="@string/checklist_text_week"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/image_category_week"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc_arrow"
+                app:srcCompat="@drawable/arrow_up" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checklist_recycler_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/checklistColorSecondary" />
+
+        <LinearLayout
+            android:id="@+id/checklist_category_far"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/checklistColorPrimary"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/checklist_text_far"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:text="@string/checklist_text_far"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/image_category_far"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc_arrow"
+                app:srcCompat="@drawable/arrow_up" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checklist_recycler_far"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+    </ScrollView>
+    <com.example.teamproject.Views.MovableFloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
-
-    <ListView
-        android:layout_marginTop="20dp"
-        android:id="@+id/today_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
-
-
-    <TextView
-        android:id="@+id/ttt_text2"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="내일"
-        android:textSize="30dp" />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
-    <ListView
-        android:layout_marginTop="20dp"
-        android:id="@+id/tomorrow_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/cross"
+        app:backgroundTint="#347FF0"
+        android:focusable="true" />
+</FrameLayout>
 
 
-    <TextView
-        android:id="@+id/tt_text3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이번 주"
-        android:textSize="30dp" />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
-    <ListView
-        android:layout_marginTop="20dp"
-        android:id="@+id/week_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.3dp"
-        android:background="#4682B4" />
-</LinearLayout>
