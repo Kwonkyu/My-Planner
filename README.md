@@ -1,7 +1,13 @@
 # My-Planner
 2019-2 / Mobile Programming Team Project
 
+시간표, 캘린더, 체크리스트 기능을 모두 포함한 간단한 일정관리 앱.
 
-11/26 7시 40분경 Supplier 가 merge 한 에서 실행이 되지 않으면 
-build.gradle(Module:app) 의 dependencies 에
-implementation 'com.google.code.gson:gson:2.8.5' 추가하고 싱크하면 됨
+## 참여자
+- 김민기: 시간표 기능 제작
+- 김태휘: 체크리스트 기능 제작
+- 박권규: 체크리스트 기능 제작
+- 박준석: 캘린더 기능 제작
+
+## 문의사항
+이슈로 문의바랍니다.
